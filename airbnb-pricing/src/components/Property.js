@@ -1,18 +1,21 @@
-/* Requirements:
- Show properties of the property: housing type, beds, etc etc. 
- Also have areas for returning pricing recommendations for property
- Buttons for editing and deleting
- Tyler 
-
+// /Requirements:
+//  Show properties of the property: housing type, beds, etc etc. 
+//  Also have areas for returning pricing recommendations for property
+//  Buttons for editing and deleting
  import React from "react";
 
-  Use this to create a new form
  const Property = props => {
  		return (
- 			<div className="property-list" key={property.id}>
- 				<h2>{property.title}</h2>
- 				<p>{property.body}</p>
+ 			<div className = "property">
+				<img src = {props.photo} /> 
+				<h2>{props.title}</h2>
+		 		<h2>{props.price}</h2>
+ 				<div className = 'property-info'>
+					<h3>{props.address}</h3>
+		 			<p>Bedrooms: {props.beds}</p>
+		 			<p>Bathrooms: {props.baths}</p>
+				</div>
  			</div>
  	);
  }
- export default Property; */
+ export default Property; 
