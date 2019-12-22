@@ -20,7 +20,11 @@ const PropertyList = props => {
     console.log(properties);
     
     return (
-        properties.map(property => <Property title = {property.title} body = {property.body} />)
+        properties.map(property => <Property 
+                                        photo = {property.photo} 
+                                        title = {property.title} 
+                                        body = {property.body} 
+                                    />)
     );
 }
 export default PropertyList;
