@@ -21,11 +21,15 @@ const PropertyList = props => {
     
     return (
         properties.map(property => <Property 
-                                        key={property.id}
+                                        key = {property.id}
                                         photo = {property.photo} 
                                         title = {property.title} 
-                                        body = {property.body} 
-                                    />)
+                                        price = {property.price}
+                                        address = {property.address}
+                                        beds = {property.bedrooms}
+                                        baths = {property.bathrooms}
+                                    />
+        )
     );
-}
+} 
 export default PropertyList;
