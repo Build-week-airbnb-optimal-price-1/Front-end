@@ -21,6 +21,7 @@ const PropertyList = props => {
     
     return (
         properties.map(property => <Property 
+                                        key={property.id}
                                         photo = {property.photo} 
                                         title = {property.title} 
                                         body = {property.body} 
