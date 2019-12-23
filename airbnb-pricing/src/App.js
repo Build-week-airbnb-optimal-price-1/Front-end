@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import AddProperty from "./components/AddProperty";
-import Property from "./components/Property";
+import AddProperty from './components/AddProperty';
+import Property from './components/Property';
 import axios from 'axios';
 import './App.css';
 
@@ -12,7 +12,7 @@ function App() {
     const newProperty = {
       id: Date.now(),
       title: property.title,
-      location: property.body
+      body: property.body
     };
     setProperties([...properties, newProperty])
   }
@@ -21,6 +21,7 @@ function App() {
 
   // searchTerm will save the data from the search input on every occurance of the change event. 
   const [searchTerm, setSearchTerm] = useState("");
+
   // searchResults is used to set the search result. 
   const [searchResults, setSearchResults] = useState([]);
 
@@ -28,7 +29,8 @@ function App() {
   const handleChange = event => {
     setSearchTerm(event.target.value)
   }
-
+  
+  // We need to create a useEffect when we are watching for something
   useEffect(() => {
     const getSearch = () => {
       axios
@@ -45,8 +47,7 @@ function App() {
     const results = properties.filter(stat => {
       return (
         stat.fish_spec.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        stat.county.toLowerCase().includes(searchTerm.toLowerCase()) || 
-        {/* Add all of the keys here */}
+        stat.county.toLowerCase().includes(searchTerm.toLowerCase())
       );
     });
 
@@ -55,42 +56,48 @@ function App() {
     //eslint-disable-next-line
   }, [searchTerm]);
   console.log(properties); 
- 
 
+  const submitForm = event => {
+    event.preventDefault();
+    addNewProperty(properties);
+    setProperties({ title: "", body: "" }); // To clear out inputs - Re-updating our state to empty strings
+  };
+ 
   return (
     <div className="App">
-      <h1>My Property</h1>
+      <h1>My Property in Tokyo</h1>
       {/* we are going to pass a function down as a prop */}
       <AddProperty properties={properties} addNewProperty={addNewProperty} />
       {/* <Property properties={properties} /> */}
-    <form>
-      {/* We apply two-way data binding to the input field, which basically takes the value from the user and saves it into the satte. */}
-      {/* Two-way binding just means that: When properties in the model get updated, so does the UI. When UI elements get updated, the changes get propagated back to the model. */}
-      <label htmlFor="name">Search:</label>
-      <input 
-        id="name" 
-        type="text" 
-        name="textfield" 
-        placeholder="Search"
-        onChange={handleChange} 
-        value={searchTerm} />
-    </form >
-    <div className="property-list">
-      <ul>
-       {searchResults.map
-       (property => (
-        <Property 
-           photo={property.photo}
-           title={property.fish_spec}
-           price={property.price}
-           address={property.county}
-           beds={property.bedrooms}
-           baths={property.bathrooms}
+      <form onSubmit={submitForm}>
+        {/* We apply two-way data binding to the input field, which basically takes the value from the user and saves it into the satte. */}
+        {/* Two-way binding just means that: When properties in the model get updated, so does the UI. When UI elements get updated, the changes get propagated back to the model. */}
+        <label htmlFor="name">Search Properties:</label>
+        <input
+          id="name"
+          type="text"
+          name="textfield"
+          placeholder="Search"
+          onChange={handleChange}
+          value={searchTerm}
         />
-       ))}
-      </ul>
+        <button type="sbumit">Apply</button>
+      </form>
+      <div className="property-list">
+        <ul>
+          {searchResults.map(property => (
+            <Property
+              photo={property.photo}
+              title={property.fish_spec}
+              price={property.price}
+              address={property.county}
+              beds={property.bedrooms}
+              baths={property.bathrooms}
+            />
+          ))}
+        </ul>
+      </div>
     </div>
-  </div >
   );
 }
 
