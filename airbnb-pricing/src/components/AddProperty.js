@@ -4,7 +4,7 @@
 // have a generic function which accepts a field name - good to reduce boilerplate
 // or have several specialized functions, one for each field - more flexible, it will allow to execute different logic depending on the field.
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const AddProperty = props => {
 
@@ -40,7 +40,7 @@ const AddProperty = props => {
 					value={location.body}
 					onChange={handleChanges} 
 				/>
-				<button type="sbumit">Add Title</button>
+				<button type="sbumit">Submit</button>
 		</form>
 	);
 };

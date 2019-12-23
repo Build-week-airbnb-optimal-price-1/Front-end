@@ -1,20 +1,12 @@
 import React, { useState, useEffect } from 'react';
-// import ReactDom from "react-dom";
 import AddProperty from "./components/AddProperty";
 import Property from "./components/Property";
+import axios from 'axios';
 import './App.css';
 
 // state set up
 function App() {
-  const [properties, setProperties] = useState([
-    {
-      id: 1,
-      title: "",
-      location: "",
-      beds: "",
-      type: ""
-    }
-  ]);
+  const [properties, setProperties] = useState([]);
 
   const addNewProperty = property => {
     const newProperty = {
@@ -32,20 +24,39 @@ function App() {
   // searchResults is used to set the search result. 
   const [searchResults, setSearchResults] = useState([]);
 
-  // My response.data from an API
-  useEffect(() => {
-    const results = properties.filter(property => {
-      return 
-        property.toLowerCase().includes(searchTerm.toLowerCase());
-    });
-    setSearchResults(results)
-  }, [searchTerm]);
-
   // The handleChange method takes the event object as the argument and sets the current value of the form to the searchTerm state using seSearchTerm.
   const handleChange = event => {
     setSearchTerm(event.target.value)
   }
-  
+
+  useEffect(() => {
+    const getSearch = () => {
+      axios
+        .get("https://data.ny.gov/resource/jcxg-7gnm.json/") // AirBnB API key here
+        .then(response => {
+          console.log("API Is Here: ", response.data);
+          setProperties(response.data);
+        })
+        .catch(error => {
+          console.log("Whoops go back, thats an error!", error);
+        });
+    };
+
+    const results = properties.filter(stat => {
+      return (
+        stat.fish_spec.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        stat.county.toLowerCase().includes(searchTerm.toLowerCase()) || 
+        {/* Add all of the keys here */}
+      );
+    });
+
+    getSearch();
+    setSearchResults(results);
+    //eslint-disable-next-line
+  }, [searchTerm]);
+  console.log(properties); 
+ 
+
   return (
     <div className="App">
       <h1>My Property</h1>
@@ -68,7 +79,14 @@ function App() {
       <ul>
        {searchResults.map
        (property => (
-         <li key={property}>{property}</li>
+        <Property 
+           photo={property.photo}
+           title={property.fish_spec}
+           price={property.price}
+           address={property.county}
+           beds={property.bedrooms}
+           baths={property.bathrooms}
+        />
        ))}
       </ul>
     </div>
