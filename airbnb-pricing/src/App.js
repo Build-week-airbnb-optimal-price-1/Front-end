@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import AddProperty from './components/AddProperty';
-import Property from './components/Property';
-import axios from 'axios';
-import './App.css';
+import React from 'react';
+import PrivateRoute from "./components/PrivateRoute";
+import { logout } from "./store/actions";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Signup from "./components/Signup";
+import PropertyList from "./components/PropertyList";
 
-// state set up
-function App() {
+function App(props) {
+
   const [properties, setProperties] = useState([]);
 
   const addNewProperty = property => {
@@ -98,7 +101,20 @@ function App() {
         </ul>
       </div>
     </div>
+
+    {/* This will be the only thing that remains */}
+    <Router>
+      <Switch>
+        <PrivateRoute path="/properties" exact component={loggedIn ? PropertyList : Signup} />
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup} />
+      </Switch>
+    </Router>
   );
 }
 
-export default App;
+const mapStateToProps = state => ({
+  loginStart: state.loginStart
+});
+
+export default connect(mapStateToProps, { logout })(withRouter(App));

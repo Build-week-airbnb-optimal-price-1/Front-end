@@ -5,9 +5,14 @@
 import React from "react";
 import Property from "./Property";
 import axios from "axios";
+import Spinner from "react-spinner";
 
 // Use this to create a new form
 const PropertyList = props => {
+	if (props.loginStart) {
+    	return <Spinner />;
+  	}
+
 	const [properties, setProperties] = useState();
 
 	axios.get(backend.api)
@@ -34,3 +39,8 @@ const PropertyList = props => {
 	);
 } 
 export default PropertyList;
+// Maybe keep minimal information so that peple click through
+
+
+
+
