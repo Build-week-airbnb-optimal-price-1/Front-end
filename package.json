@@ -1,0 +1,24 @@
+{
+  "name": "properties",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Build-week-airbnb-optimal-price-1/Front-end"
+  },
+  "author": "Jimmy Hooker",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Build-week-airbnb-optimal-price-1/Front-end/issues"
+  },
+  "homepage": "https://github.com/Build-week-airbnb-optimal-price-1/Front-end#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2"
+  }
+}
