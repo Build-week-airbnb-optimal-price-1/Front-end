@@ -11,8 +11,8 @@ app.use(CORS());
 
 let properties = [
   {
-    photo: "https://picsum.photos/200/300",
-    title: "Berlin House",
+    photo: "https://picsum.photos/400/250?random=1",
+    title: "Tokyo House",
     baths: 3,
     beds: 3,
     price_recommendations: {
@@ -28,8 +28,8 @@ let properties = [
     id: 1
   },
   {
-    photo: "https://picsum.photos/200/300",
-    title: "Berlin House 2",
+    photo: "https://picsum.photos/400/250?random=2",
+    title: "Tokyo House 2",
     baths: 3,
     beds: 3,
     price_recommendations: {
@@ -45,8 +45,8 @@ let properties = [
     id: 2
   },
   {
-    photo: "https://picsum.photos/200/300",
-    title: "Berlin House 3",
+    photo: "https://picsum.photos/400/250?random=3",
+    title: "Tokyo House 3",
     baths: 3,
     beds: 3,
     price_recommendations: {
@@ -62,8 +62,8 @@ let properties = [
     id: 3
   },
   {
-    photo: "https://picsum.photos/200/300",
-    title: "Berlin House 4",
+    photo: "https://picsum.photos/400/250?random=4",
+    title: "Tokyo House 4",
     baths: 3,
     beds: 3,
     price_recommendations: {
@@ -79,8 +79,8 @@ let properties = [
     id: 4
   },
   {
-    photo: "https://picsum.photos/200/300",
-    title: "Berlin House 5",
+    photo: "https://picsum.photos/400/250?random=5",
+    title: "Tokyo House 5",
     baths: 3,
     beds: 3,
     price_recommendations: {
@@ -96,8 +96,8 @@ let properties = [
     id: 5
   },
   {
-    photo: "https://picsum.photos/200/300",
-    title: "Berlin House 6",
+    photo: "https://picsum.photos/400/250?random=6",
+    title: "Tokyo House 6",
     baths: 3,
     beds: 3,
     price_recommendations: {
@@ -113,8 +113,8 @@ let properties = [
     id: 6
   },
   {
-    photo: "https://picsum.photos/200/300",
-    title: "Berlin House 7",
+    photo: "https://picsum.photos/400/250?random=7",
+    title: "Tokyo House 7",
     baths: 3,
     beds: 3,
     price_recommendations: {
@@ -130,8 +130,8 @@ let properties = [
     id: 7
   },
   {
-    photo: "https://picsum.photos/200/300",
-    title: "Berlin House",
+    photo: "https://picsum.photos/400/250?random=8",
+    title: "Tokyo House",
     baths: 3,
     beds: 3,
     price_recommendations: {
@@ -147,8 +147,8 @@ let properties = [
     id: 8
   },
   {
-    photo: "https://picsum.photos/200/300",
-    title: "Berlin House",
+    photo: "https://picsum.photos/400/250?random=9",
+    title: "Tokyo House",
     baths: 3,
     beds: 3,
     price_recommendations: {
@@ -164,8 +164,8 @@ let properties = [
     id: 9
   },
   {
-    photo: "https://picsum.photos/200/300",
-    title: "Berlin House",
+    photo: "https://picsum.photos/400/250?random=10",
+    title: "Tokyo House",
     baths: 3,
     beds: 3,
     price_recommendations: {
@@ -181,8 +181,8 @@ let properties = [
     id: 10
   },
   {
-    photo: "https://picsum.photos/200/300",
-    title: "Berlin House",
+    photo: "https://picsum.photos/400/250?random=11",
+    title: "Tokyo House",
     baths: 3,
     beds: 3,
     price_recommendations: {

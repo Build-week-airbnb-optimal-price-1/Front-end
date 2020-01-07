@@ -2,45 +2,55 @@
 // List out properties
 // Maybe keep minimal information so that peple click through
 // Tyler
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Property from "./Property";
-import axios from "axios";
-import Spinner from "react-spinner";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { getProperties } from "../store/actions";
+//import axios from "axios";
+//import Spinner from "react-spinner";
 
-// Use this to create a new form
 const PropertyList = props => {
-	if (props.loginStart) {
-    	return <Spinner />;
-  	}
 
-	const [properties, setProperties] = useState();
-
-	axios.get(backend.api)
-			.then(response => {
-					console.log(response)
-					setProperties(response.data)
-			})
-			.catch(error => console.log(error))
-	
-	console.log(properties);
-    
+	useEffect(() => {
+		props.getProperties(props.token);
+	}, []);
 	return (
-		properties.map(property => 
-			<Property 
-				key = {property.id}
-				photo = {property.photo} 
-				title = {property.title} 
-				price = {property.price}
-				address = {property.address}
-				beds = {property.bedrooms}
-				baths = {property.bathrooms}
+    <>
+      <h1> STUFF </h1>
+      {props.getPropertiesStart ? (
+        <>
+          <h1>Loading...</h1>
+        </>
+      ) : (
+        <>
+          <h1>SUCCESS!</h1>
+          {props.properties && props.properties.map(property => {
+			console.log(property);
+			return (
+				<Property
+				key={property.id}
+				photo={property.photo}
+				title={property.title}
+				price={property.price}
+				address={property.address}
+				beds={property.beds}
+				baths={property.baths}
 				/>
-		)
-	);
-} 
-export default PropertyList;
-// Maybe keep minimal information so that peple click through
+      		)
+          })}
+        </>
+      )}
+    </>
+  );
+}
 
+const mapStateToProps = state => ({
+  token: state.token,
+  properties: state.properties,
+  getPropertiesStart: state.getPropertiesStart
+});
 
+export default connect(mapStateToProps, { getProperties })(withRouter(PropertyList));
 
 
