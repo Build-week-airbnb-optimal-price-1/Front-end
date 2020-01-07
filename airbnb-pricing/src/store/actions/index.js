@@ -1,5 +1,4 @@
-import axios from "axios";
-import axiosWithAuth from "../../utils/axiosWithAuth";
+import { axiosWithAuth } from "../../utils/axiosWithAuth";
 
 const url = "http://localhost:5000/api";
 
@@ -10,12 +9,14 @@ export const LOGIN_ERROR = "LOGIN_ERROR";
 export const login = (creds, history) => dispatch => {
   dispatch({ type: LOGIN_START });
 
-  axios
+  axiosWithAuth()
     .post(`${url}/login`, creds)
     .then(res => {
       console.log(res);
       setTimeout(() => {
         dispatch({ type: LOGIN_SUCCESS, payload: res.data.payload });
+        localStorage.setItem("token", res.data.payload);
+        console.log("login success!");
         history.push("/properties");
       }, 1500);
     })
@@ -29,7 +30,7 @@ export const SIGNUP_ERROR = "SIGNUP_ERROR";
 export const signup = (creds, history) => dispatch => {
   dispatch({ type: SIGNUP_START });
 
-  axios
+  axiosWithAuth()
     .post(`${url}/signup`, creds)
     .then(res => {
       console.log(res);
@@ -53,9 +54,13 @@ export const getProperties = token => dispatch => {
     .then(res => {
       setTimeout(() => {
         dispatch({ type: GET_PROPERTIES_SUCCESS, payload: res.data });
+        console.log(res.data)
       }, 1000);
     })
-    .catch(err => dispatch({ type: GET_PROPERTIES_ERROR }));
+    .catch(err => {
+      dispatch({ type: GET_PROPERTIES_ERROR });
+      console.log(err);
+    });
 };
 
 export const POST_PROPERTY_START = "POST_PROPERTY_START";
