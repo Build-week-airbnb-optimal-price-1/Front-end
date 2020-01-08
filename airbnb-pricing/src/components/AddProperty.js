@@ -17,14 +17,14 @@ const AddProperty = props => {
     neighbourhood_cleansed: "",
     property_type: "",
     room_type: "",
-    bathrooms: "",
-    cleaning_fee: "",
-    minimum_nights: "",
-    instant_bookable: false,
-    kitchen: false,
-    smoke_detector: false,
-    self_check_in: false,
-    hot_water: false,
+    bathrooms: 0,
+    cleaning_fee: 0,
+    minimum_nights: 0,
+    instant_bookable: 0,
+    kitchen: 0,
+    smoke_detector: 0,
+    self_check_in: 0,
+    hot_water: 0,
     id: Date.now()
   });
 	// Spread operator and Computed properties(ES6) - This is my changeHandler. It's still using my event from onChange but now I can dynamically set my keys in my objects with computed properties. 
@@ -33,17 +33,21 @@ const AddProperty = props => {
 		setProperty({ ...property, [event.target.name]: event.target.value }); 
 		console.log(event.target.name);
   }; 
+
+  const handleNumbers = event => {
+    setProperty({ ...property, [event.target.name]: parseInt(event.target.value) });
+    console.log(event.target.name);
+  }; 
   
   const handleClick = event => {
-    setProperty({ ...property, [event.target.name]: (event.target.checked ? 'Yes' : 'No') });
+    setProperty({ ...property, [event.target.name]: (event.target.checked ? 1 : 0 ) });
     console.log(event.target.name);
   }; 
 
 	const submitForm = event => {
 		event.preventDefault();
-		const blank = "";
 		props.postProperty(localStorage.getItem("token"), property);
-		setProperty({ ...property, [event.target.name]: blank }); // To clear out inputs - Re-updating our state to empty strings
+		setProperty({ ...property, [event.target.name]: "" });
 	};
 
 	return (
@@ -162,60 +166,55 @@ const AddProperty = props => {
           id="bathrooms"
           name="bathrooms"
           value={property.bathrooms}
-          onChange={handleChanges}
+          onChange={handleNumbers}
         />
         <label htmlFor="cleaning_fee">Cleaning Fee</label>
         <input
           id="cleaning_fee"
           name="cleaning_fee"
           value={property.cleaning_fee}
-          onChange={handleChanges}
+          onChange={handleNumbers}
         />
         <label htmlFor="minimum_nights">Minimum Night Stay</label>
         <input
           id="minimum_nights"
           name="minimum_nights"
           value={property.minimum_nights}
-          onChange={handleChanges}
+          onChange={handleNumbers}
         />
         <label htmlFor="instant_bookable">Instant Book?</label>
         <input
           id="instant_bookable"
           name="instant_bookable"
           type="checkbox"
-          value={property.instant_bookable}
-          onChange={handleChanges}
+          onClick={handleClick}
         />
         <label htmlFor="kitchen">Kitchen?</label>
         <input
           id="kitchen"
           name="kitchen"
           type="checkbox"
-          value={property.kitchen}
-          onChange={handleChanges}
+          onClick={handleClick}
         />
         <label htmlFor="smoke_detector">Smoke Detector?</label>
         <input
           id="smoke_detector"
           name="smoke_detector"
           type="checkbox"
-          value={property.smoke_detector}
-          onChange={handleChanges}
+          onClick={handleClick}
         />
         <label htmlFor="self_check_in">Self Check In?</label>
         <input
           id="self_check_in"
           name="self_check_in"
           type="checkbox"
-          value={property.self_check_in}
-          onChange={handleChanges}
+          onClick={handleClick}
         />
         <label htmlFor="hot_water">Hot Water?</label>
         <input
           id="hot_water"
           name="hot_water"
           type="checkbox"
-          value={property.hot_water}
           onClick={handleClick}
         />
         <button type="submit">Submit</button>
