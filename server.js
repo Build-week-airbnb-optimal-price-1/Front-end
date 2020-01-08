@@ -13,189 +13,19 @@ let properties = [
   {
     photo: "https://picsum.photos/400/250?random=1",
     title: "Tokyo House",
-    baths: 3,
-    beds: 3,
-    price_recommendations: {
-      price_1: "150",
-      price_2: "140",
-      price_3: "145",
-      price_4: "162",
-      price_5: "171",
-      price_6: "131",
-      price_7: "126"
-    },
-    address: "1234 N Whatever Ave",
+    summary: "This is a nice little place",
+    neighbourhood_cleansed: "Setagaya Ku",
+    property_type: "House",
+    room_type: "Shared room",
+    bathrooms: "2",
+    cleaning_fee: "200",
+    minimum_nights: "2",
+    instant_bookable: true,
+    kitchen: true,
+    smoke_detector: true,
+    self_check_in: true,
+    hot_water: true,
     id: 1
-  },
-  {
-    photo: "https://picsum.photos/400/250?random=2",
-    title: "Tokyo House 2",
-    baths: 3,
-    beds: 3,
-    price_recommendations: {
-      price_1: "150",
-      price_2: "140",
-      price_3: "145",
-      price_4: "162",
-      price_5: "171",
-      price_6: "131",
-      price_7: "126"
-    },
-    address: "1234 N Whatever Ave",
-    id: 2
-  },
-  {
-    photo: "https://picsum.photos/400/250?random=3",
-    title: "Tokyo House 3",
-    baths: 3,
-    beds: 3,
-    price_recommendations: {
-      price_1: "150",
-      price_2: "140",
-      price_3: "145",
-      price_4: "162",
-      price_5: "171",
-      price_6: "131",
-      price_7: "126"
-    },
-    address: "1234 N Whatever Ave",
-    id: 3
-  },
-  {
-    photo: "https://picsum.photos/400/250?random=4",
-    title: "Tokyo House 4",
-    baths: 3,
-    beds: 3,
-    price_recommendations: {
-      price_1: "150",
-      price_2: "140",
-      price_3: "145",
-      price_4: "162",
-      price_5: "171",
-      price_6: "131",
-      price_7: "126"
-    },
-    address: "1234 N Whatever Ave",
-    id: 4
-  },
-  {
-    photo: "https://picsum.photos/400/250?random=5",
-    title: "Tokyo House 5",
-    baths: 3,
-    beds: 3,
-    price_recommendations: {
-      price_1: "150",
-      price_2: "140",
-      price_3: "145",
-      price_4: "162",
-      price_5: "171",
-      price_6: "131",
-      price_7: "126"
-    },
-    address: "1234 N Whatever Ave",
-    id: 5
-  },
-  {
-    photo: "https://picsum.photos/400/250?random=6",
-    title: "Tokyo House 6",
-    baths: 3,
-    beds: 3,
-    price_recommendations: {
-      price_1: "150",
-      price_2: "140",
-      price_3: "145",
-      price_4: "162",
-      price_5: "171",
-      price_6: "131",
-      price_7: "126"
-    },
-    address: "1234 N Whatever Ave",
-    id: 6
-  },
-  {
-    photo: "https://picsum.photos/400/250?random=7",
-    title: "Tokyo House 7",
-    baths: 3,
-    beds: 3,
-    price_recommendations: {
-      price_1: "150",
-      price_2: "140",
-      price_3: "145",
-      price_4: "162",
-      price_5: "171",
-      price_6: "131",
-      price_7: "126"
-    },
-    address: "1234 N Whatever Ave",
-    id: 7
-  },
-  {
-    photo: "https://picsum.photos/400/250?random=8",
-    title: "Tokyo House",
-    baths: 3,
-    beds: 3,
-    price_recommendations: {
-      price_1: "150",
-      price_2: "140",
-      price_3: "145",
-      price_4: "162",
-      price_5: "171",
-      price_6: "131",
-      price_7: "126"
-    },
-    address: "1234 N Whatever Ave",
-    id: 8
-  },
-  {
-    photo: "https://picsum.photos/400/250?random=9",
-    title: "Tokyo House",
-    baths: 3,
-    beds: 3,
-    price_recommendations: {
-      price_1: "150",
-      price_2: "140",
-      price_3: "145",
-      price_4: "162",
-      price_5: "171",
-      price_6: "131",
-      price_7: "126"
-    },
-    address: "1234 N Whatever Ave",
-    id: 9
-  },
-  {
-    photo: "https://picsum.photos/400/250?random=10",
-    title: "Tokyo House",
-    baths: 3,
-    beds: 3,
-    price_recommendations: {
-      price_1: "150",
-      price_2: "140",
-      price_3: "145",
-      price_4: "162",
-      price_5: "171",
-      price_6: "131",
-      price_7: "126"
-    },
-    address: "1234 N Whatever Ave",
-    id: 10
-  },
-  {
-    photo: "https://picsum.photos/400/250?random=11",
-    title: "Tokyo House",
-    baths: 3,
-    beds: 3,
-    price_recommendations: {
-      price_1: "150",
-      price_2: "140",
-      price_3: "145",
-      price_4: "162",
-      price_5: "171",
-      price_6: "131",
-      price_7: "126"
-    },
-    address: "1234 N Whatever Ave",
-    id: 11
   }
 ];
 
@@ -210,13 +40,13 @@ function authenticator(req, res, next) {
   }
 }
 
-app.post("/api/login", (req, res) => {
+app.post("/api/auth/login", (req, res) => {
   const { username, password } = req.body;
   if (username === "Lambda School" && password === "i<3Lambd4") {
     req.loggedIn = true;
     setTimeout(() => {
       res.status(200).json({
-        payload: token
+        token: token
       });
     }, 1000);
   } else {
@@ -226,11 +56,11 @@ app.post("/api/login", (req, res) => {
   }
 });
 
-app.get("/api/properties", authenticator, (req, res) => {
+app.get("/api/listings", authenticator, (req, res) => {
   res.send(properties);
 });
 
-app.post("/api/properties", authenticator, (req, res) => {
+app.post("/api/listings/insertlisting", authenticator, (req, res) => {
   if (req.body.property !== undefined && req.body.code !== undefined) {
     const newproperty = req.body;
     newproperty.id = nextId;
@@ -240,7 +70,7 @@ app.post("/api/properties", authenticator, (req, res) => {
   res.status(201).json(properties);
 });
 
-app.put("/api/properties/:id", authenticator, (req, res) => {
+app.put("/api/listings/:id", authenticator, (req, res) => {
   if (!req.params.id)
     res.status(400).send("Your request is missing the property id");
   if (req.body.id === undefined || !req.body.property || !req.body.code) {
@@ -257,7 +87,7 @@ app.put("/api/properties/:id", authenticator, (req, res) => {
   res.status(200).send(req.body);
 });
 
-app.delete("/api/properties/:id", authenticator, (req, res) => {
+app.delete("/api/listings/:id", authenticator, (req, res) => {
   if (!req.params.id)
     res.status(400).send("Your request is missing the property id");
   properties = properties.filter(property => `${property.id}` !== req.params.id);
@@ -268,6 +98,6 @@ app.get("/", function(req, res) {
   res.send("App is working 👍");
 });
 
-app.listen(5000, () => {
-  console.log("Server listening on port 5000");
+app.listen(5500, () => {
+  console.log("Server listening on port 5500");
 });

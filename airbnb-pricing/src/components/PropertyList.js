@@ -32,10 +32,18 @@ const PropertyList = props => {
 				key={property.id}
 				photo={property.photo}
 				title={property.title}
-				price={property.price}
-				address={property.address}
-				beds={property.beds}
-				baths={property.baths}
+        summary={property.summary}
+        neighbourhood_cleansed={property.neighbourhood_cleansed}
+        property_type={property.property_type}
+        room_type={property.room_type}
+        bathrooms={property.bathrooms}
+        cleaning_fee={property.cleaning_fee}
+        minimum_nights={property.minimum_nights}
+        instant_bookable={property.instant_bookable}
+        kitchen={property.kitchen}
+        smoke_detector={property.smoke_detector}
+        self_check_in={property.self_check_in}
+        hot_water={property.hot_water}
 				/>
       		)
           })}

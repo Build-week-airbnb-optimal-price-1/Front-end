@@ -11,28 +11,33 @@ import { postProperty } from "../store/actions";
 
 const AddProperty = props => {
 	const [property, setProperty] = useState({
-	photo: `https://picsum.photos/400/250?random=${Date.now()}`,
+    photo: `https://picsum.photos/400/250?random=${Date.now()}`,
     title: "",
-	summary: "",
-	neighbourhood_cleansed: "",
-	property_type: "",
-	room_type: "",
-	bathrooms: "",
-	cleaning_fee: "",
-	minimum_nights: "",
-	instant_bookable: false,
-	kitchen: false,
-	smoke_detector: false,
-	self_check_in: false,
-	hot_water: false,
-	id: Date.now()
+    summary: "",
+    neighbourhood_cleansed: "",
+    property_type: "",
+    room_type: "",
+    bathrooms: "",
+    cleaning_fee: "",
+    minimum_nights: "",
+    instant_bookable: false,
+    kitchen: false,
+    smoke_detector: false,
+    self_check_in: false,
+    hot_water: false,
+    id: Date.now()
   });
 	// Spread operator and Computed properties(ES6) - This is my changeHandler. It's still using my event from onChange but now I can dynamically set my keys in my objects with computed properties. 
 	// I'm capturing the name attribute from wherever I fire the event. 
 	const handleChanges = event => {
-		setProperty({ ...property, [event.target.name]: event.target.value }); // Key value pair
+		setProperty({ ...property, [event.target.name]: event.target.value }); 
 		console.log(event.target.name);
-	}; 
+  }; 
+  
+  const handleClick = event => {
+    setProperty({ ...property, [event.target.name]: (event.target.checked ? 'Yes' : 'No') });
+    console.log(event.target.name);
+  }; 
 
 	const submitForm = event => {
 		event.preventDefault();
@@ -211,8 +216,7 @@ const AddProperty = props => {
           name="hot_water"
           type="checkbox"
           value={property.hot_water}
-          checked={property.hot_water === true}
-          onChange={handleChanges}
+          onClick={handleClick}
         />
         <button type="submit">Submit</button>
       </form>

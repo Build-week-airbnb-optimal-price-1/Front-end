@@ -70,7 +70,7 @@ export const postProperty = (token, property) => dispatch => {
     dispatch({ type: POST_PROPERTY_START });
     console.log(property);
     axiosWithAuth(token)
-      .post(`${url}/properties`, property)
+      .post(`${url}/listings/insertlisting`, property)
       .then(res => {
         console.log(res);
         setTimeout(() => {
