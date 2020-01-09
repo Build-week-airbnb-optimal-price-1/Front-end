@@ -6,19 +6,24 @@ import React, { useState, useEffect } from "react";
 import Property from "./Property";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { getProperties } from "../store/actions";
-import { deleteProperty } from "../store/actions";
+import {
+  getProperties,
+  deleteProperty,
+  editProperty
+} from "../store/actions";
 //import axios from "axios";
 //import Spinner from "react-spinner";
 
 const PropertyList = props => {
 
   const deletePropertyButton = (e, id) => {
-    // e.preventDefault();
     e.stopPropagation();
-    // console.log(id);
-    // console.log("SOMETHING");
     props.deleteProperty(localStorage.getItem("token"), id);
+  };
+
+  const editPropertyButton = (e, id) => {
+    e.stopPropagation();
+    props.editProperty(localStorage.getItem("token"), id, props.history);
   };
 
 	useEffect(() => {
@@ -56,6 +61,7 @@ const PropertyList = props => {
                 host_location={property.host_location}
                 host_response_rate={property.host_response_rate}
                 delete={e => deletePropertyButton(e, property.id)}
+                edit={e => editPropertyButton(e, property.id)}
               />
             </>
           );
@@ -72,7 +78,7 @@ const mapStateToProps = state => ({
   getPropertiesStart: state.getPropertiesStart
 });
 
-export default connect(mapStateToProps, { getProperties, deleteProperty })(
+export default connect(mapStateToProps, { getProperties, deleteProperty, editProperty })(
   withRouter(PropertyList)
 );
 

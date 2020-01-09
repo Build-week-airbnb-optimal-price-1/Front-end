@@ -68,7 +68,6 @@ export const POST_PROPERTY_ERROR = "POST_PROPERTY_ERROR";
 
 export const postProperty = (token, property, history) => dispatch => {
     dispatch({ type: POST_PROPERTY_START });
-    console.log(property);
     axiosWithAuth(token)
       .post(`${url}/listings/insertlisting`, property)
       .then(res => {
@@ -79,6 +78,24 @@ export const postProperty = (token, property, history) => dispatch => {
         }, 1500);
       })
       .catch(err => dispatch({ type: POST_PROPERTY_ERROR }));
+};
+
+export const EDIT_PROPERTY_START = "EDIT_PROPERTY_START";
+export const EDIT_PROPERTY_SUCCESS = "EDIT_PROPERTY_SUCCESS";
+export const EDIT_PROPERTY_ERROR = "EDIT_PROPERTY_ERROR";
+
+export const editProperty = (token, property, history) => dispatch => {
+  dispatch({ type: EDIT_PROPERTY_START });
+  axiosWithAuth(token)
+    .put(`${url}/listings/updatelisting/${property.id}`, property)
+    .then(res => {
+      console.log(res);
+      setTimeout(() => {
+        dispatch({ type: EDIT_PROPERTY_SUCCESS, payload: res.data });
+        history.push("/properties");
+      }, 1500);
+    })
+    .catch(err => dispatch({ type: EDIT_PROPERTY_ERROR }));
 };
 
 export const DELETE_PROPERTY_START = "DELETE_PROPERTY_START";
