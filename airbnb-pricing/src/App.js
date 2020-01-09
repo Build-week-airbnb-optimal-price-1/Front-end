@@ -13,6 +13,7 @@ import Signup from "./components/Signup";
 import PropertyList from "./components/PropertyList";
 import AddProperty from './components/AddProperty';
 
+
 function App(props) {
   return (
     <Router>
