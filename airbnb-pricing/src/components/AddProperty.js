@@ -20,12 +20,15 @@ const AddProperty = props => {
     bathrooms: 0,
     cleaning_fee: 0,
     minimum_nights: 0,
-    instant_bookable: 0,
-    kitchen: 0,
-    smoke_detector: 0,
-    self_check_in: 0,
-    hot_water: 0,
-    id: Date.now()
+    instant_bookable: false,
+    kitchen: false,
+    smoke_detector: false,
+    self_check_in: false,
+    hot_water: false,
+    host_location: "",
+    host_response_rate: 0,
+    id: Date.now(),
+    user_id: localStorage.getItem("user_id")
   });
 	// Spread operator and Computed properties(ES6) - This is my changeHandler. It's still using my event from onChange but now I can dynamically set my keys in my objects with computed properties. 
 	// I'm capturing the name attribute from wherever I fire the event. 
@@ -40,18 +43,19 @@ const AddProperty = props => {
   }; 
   
   const handleClick = event => {
-    setProperty({ ...property, [event.target.name]: (event.target.checked ? 1 : 0 ) });
+    setProperty({ ...property, [event.target.name]: (event.target.checked ? true : false ) });
     console.log(event.target.name);
   }; 
 
 	const submitForm = event => {
 		event.preventDefault();
-		props.postProperty(localStorage.getItem("token"), property);
+		props.postProperty(localStorage.getItem("token"), property, props.history);
 		setProperty({ ...property, [event.target.name]: "" });
 	};
 
 	return (
     <>
+      {!props.postPropertyStart ? (
       <form onSubmit={submitForm}>
         <label htmlFor="title">Title</label>
         <input
@@ -217,8 +221,26 @@ const AddProperty = props => {
           type="checkbox"
           onClick={handleClick}
         />
+        <label htmlFor="host_location">Where is the host located?</label>
+        <input
+          id="host_location"
+          type="text"
+          name="host_location"
+          onChange={handleChanges}
+          value={property.host_location}
+        />
+        <label htmlFor="host_response_rate">Host response rate from 1-100</label>
+        <input
+          id="host_response_rate"
+          name="host_response_rate"
+          value={property.host_response_rate}
+          onChange={handleNumbers}
+        />
         <button type="submit">Submit</button>
       </form>
+      ) : (
+        <h1>Posting...</h1>
+      )}
       {props.postPropertyError && (
         <p style={{ color: "red", marginTop: "10vh" }}>
           Welp, looks like it's on fire again
@@ -230,7 +252,8 @@ const AddProperty = props => {
 
 const mapStateToProps = state => ({
 	properties: state.properties,
-  	postPropertyError: state.postPropertyError
+  postPropertyError: state.postPropertyError,
+  postPropertyStart: state.postPropertyStart
 });
 
 export default connect(mapStateToProps, { postProperty })(
