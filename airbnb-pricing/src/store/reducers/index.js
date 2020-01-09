@@ -15,8 +15,9 @@ import {
 } from "../actions";
 
 const initialState = {
+  username: "",
+  password: "",
   properties: null,
-  token: null,
   loginStart: false,
   loginError: false,
   signupStart: false,
@@ -40,7 +41,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         loginStart: false,
-        token: action.payload
       };
 
     case LOGIN_ERROR:
@@ -53,21 +53,20 @@ const reducer = (state = initialState, action) => {
     case SIGNUP_START:
       return {
         ...state,
-        loginStart: true
+        signupStart: true
       };
 
     case SIGNUP_SUCCESS:
       return {
         ...state,
-        loginStart: false,
-        token: action.payload
+        signupStart: false
       };
 
     case SIGNUP_ERROR:
       return {
         ...state,
-        loginStart: false,
-        loginError: true
+        signupStart: false,
+        signupError: true
       };
 
     case GET_PROPERTIES_START:
@@ -113,8 +112,7 @@ const reducer = (state = initialState, action) => {
 
     case LOGOUT:
       return {
-        ...state,
-        token: null
+        ...state
       };
 
     default:

@@ -4,7 +4,10 @@ import { withRouter } from "react-router-dom";
 import { signup } from "../store/actions";
 
 function Signup(props) {
-  const [creds, setCreds] = useState({});
+  const [creds, setCreds] = useState({
+    username: "",
+    password: ""
+  });
 
   const handleChange = e => {
     setCreds({
