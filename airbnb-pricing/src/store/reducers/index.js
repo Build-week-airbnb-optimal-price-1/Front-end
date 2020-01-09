@@ -11,6 +11,9 @@ import {
   POST_PROPERTY_START,
   POST_PROPERTY_SUCCESS,
   POST_PROPERTY_ERROR,
+  DELETE_PROPERTY_START,
+  DELETE_PROPERTY_SUCCESS,
+  DELETE_PROPERTY_ERROR,
   LOGOUT
 } from "../actions";
 
@@ -21,12 +24,16 @@ const initialState = {
   loginStart: false,
   loginError: false,
   signupStart: false,
+  signupNew: false,
   signupError: false,
   getPropertiesStart: false,
   getPropertiesError: false,
   postPropertyStart: false,
   postPropertySuccess: false,
-  postPropertyError: false
+  postPropertyError: false,
+  deletePropertyStart: false,
+  deletePropertySuccess: false,
+  deletePropertyError: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -41,6 +48,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         loginStart: false,
+        signupNew: false
       };
 
     case LOGIN_ERROR:
@@ -59,7 +67,8 @@ const reducer = (state = initialState, action) => {
     case SIGNUP_SUCCESS:
       return {
         ...state,
-        signupStart: false
+        signupStart: false,
+        signupNew: true
       };
 
     case SIGNUP_ERROR:
@@ -108,6 +117,27 @@ const reducer = (state = initialState, action) => {
         ...state,
         postPropertyStart: false,
         postPropertyError: true
+      };
+
+    case DELETE_PROPERTY_START:
+      return {
+        ...state,
+        deletePropertyStart: true
+      };
+
+    case DELETE_PROPERTY_SUCCESS:
+      return {
+        ...state,
+        deletePropertyStart: false,
+        deletePropertySuccess: true,
+        properties: action.payload
+      };
+
+    case DELETE_PROPERTY_ERROR:
+      return {
+        ...state,
+        deletePropertyStart: false,
+        deletePropertyError: true
       };
 
     case LOGOUT:

@@ -15,6 +15,7 @@ export const login = (creds, history) => dispatch => {
       setTimeout(() => {
         dispatch({ type: LOGIN_SUCCESS });
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("user_id", res.data.user_id);
         history.push("/properties");
       }, 1500);
     })
@@ -35,7 +36,7 @@ export const signup = (creds, history) => dispatch => {
       setTimeout(() => {
         dispatch({ type: SIGNUP_SUCCESS });
         localStorage.setItem("token", res.data.token);
-        history.push("/properties");
+        history.push("/login");
       }, 1500);
     })
     .catch(err => dispatch({ type: SIGNUP_ERROR }));
@@ -53,7 +54,6 @@ export const getProperties = (token) => dispatch => {
     .then(res => {
       setTimeout(() => {
         dispatch({ type: GET_PROPERTIES_SUCCESS, payload: res.data });
-        console.log(res.data)
       }, 1000);
     })
     .catch(err => {
@@ -66,7 +66,7 @@ export const POST_PROPERTY_START = "POST_PROPERTY_START";
 export const POST_PROPERTY_SUCCESS = "POST_PROPERTY_SUCCESS";
 export const POST_PROPERTY_ERROR = "POST_PROPERTY_ERROR";
 
-export const postProperty = (token, property) => dispatch => {
+export const postProperty = (token, property, history) => dispatch => {
     dispatch({ type: POST_PROPERTY_START });
     console.log(property);
     axiosWithAuth(token)
@@ -75,10 +75,35 @@ export const postProperty = (token, property) => dispatch => {
         console.log(res);
         setTimeout(() => {
           dispatch({ type: POST_PROPERTY_SUCCESS, payload: res.data });
-          console.log("property add success!");
+          history.push("/properties");
         }, 1500);
       })
       .catch(err => dispatch({ type: POST_PROPERTY_ERROR }));
+};
+
+export const DELETE_PROPERTY_START = "DELETE_PROPERTY_START";
+export const DELETE_PROPERTY_SUCCESS = "DELETE_PROPERTY_SUCCESS";
+export const DELETE_PROPERTY_ERROR = "DELETE_PROPERTY_ERROR";
+
+export const deleteProperty = (token, id) => dispatch => {
+  dispatch({ type: DELETE_PROPERTY_START });
+  axiosWithAuth(token)
+    .delete(`${url}/listings/deletelisting/${id}`)
+    .then(res => {
+      dispatch({ type: GET_PROPERTIES_START });
+      axiosWithAuth(token)
+        .get(`${url}/listings`)
+        .then(res => {
+          setTimeout(() => {
+            dispatch({ type: GET_PROPERTIES_SUCCESS, payload: res.data });
+          }, 1000);
+        })
+        .catch(err => {
+          dispatch({ type: GET_PROPERTIES_ERROR });
+          console.log(err);
+        });
+    })
+    .catch(err => dispatch({ type: DELETE_PROPERTY_ERROR }));
 };
 
 export const LOGOUT = "LOGOUT";
