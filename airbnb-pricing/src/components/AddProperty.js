@@ -178,6 +178,7 @@ const AddProperty = props => {
           <label htmlFor="bathrooms">Bathrooms</label>
           <input
             id="bathrooms"
+            type="number"
             name="bathrooms"
             value={property.bathrooms}
             onChange={handleNumbers}
@@ -185,6 +186,7 @@ const AddProperty = props => {
           <label htmlFor="cleaning_fee">Cleaning Fee</label>
           <input
             id="cleaning_fee"
+            type="number"
             name="cleaning_fee"
             value={property.cleaning_fee}
             onChange={handleNumbers}
@@ -192,6 +194,7 @@ const AddProperty = props => {
           <label htmlFor="minimum_nights">Minimum Night Stay</label>
           <input
             id="minimum_nights"
+            type="number"
             name="minimum_nights"
             value={property.minimum_nights}
             onChange={handleNumbers}
@@ -199,6 +202,7 @@ const AddProperty = props => {
           <label htmlFor="accommodates">Number of Guests Allowed?</label>
           <input
             id="accommodates"
+            type="number"
             name="accommodates"
             value={property.accommodates}
             onChange={handleNumbers}
