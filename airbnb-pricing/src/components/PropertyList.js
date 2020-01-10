@@ -32,7 +32,7 @@ const PropertyList = props => {
 	}, []);
 	return (
     <>
-      <h1> Listings </h1>
+      <h1> Tokyo Listings </h1>
       {props.getPropertiesStart ? (
         <>
           <h1>Loading...</h1>
