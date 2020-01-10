@@ -350,6 +350,7 @@ const AddProperty = props => {
           </label>
           <input
             id="host_response_rate"
+            type="number"
             name="host_response_rate"
             value={property.host_response_rate}
             onChange={handleNumbers}
