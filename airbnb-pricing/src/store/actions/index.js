@@ -1,6 +1,10 @@
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
 
-const url = "http://localhost:5500/api";
+// const urlServer = "http://localhost:5500/api";
+// const urlDs = "http://localhost:5500/api";
+
+const urlServer = "https://carl-shouts.herokuapp.com/api";
+const urlDs = "https://ds-unit4-bw-airbnb.herokuapp.com";
 
 export const LOGIN_START = "LOGIN_START";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
@@ -9,7 +13,7 @@ export const LOGIN_ERROR = "LOGIN_ERROR";
 export const login = (creds, history) => dispatch => {
   dispatch({ type: LOGIN_START });
   axiosWithAuth()
-    .post(`${url}/auth/login`, creds)
+    .post(`${urlServer}/auth/login`, creds)
     .then(res => {
       console.log(res);
       setTimeout(() => {
@@ -30,7 +34,7 @@ export const signup = (creds, history) => dispatch => {
   dispatch({ type: SIGNUP_START });
 
   axiosWithAuth()
-    .post(`${url}/auth/register`, creds)
+    .post(`${urlServer}/auth/register`, creds)
     .then(res => {
       console.log(res);
       setTimeout(() => {
@@ -50,7 +54,7 @@ export const getProperties = (token) => dispatch => {
   dispatch({ type: GET_PROPERTIES_START });
 
   axiosWithAuth(token)
-    .get(`${url}/listings`)
+    .get(`${urlServer}/listings`)
     .then(res => {
       setTimeout(() => {
         dispatch({ type: GET_PROPERTIES_SUCCESS, payload: res.data });
@@ -67,49 +71,91 @@ export const POST_PROPERTY_SUCCESS = "POST_PROPERTY_SUCCESS";
 export const POST_PROPERTY_ERROR = "POST_PROPERTY_ERROR";
 
 export const postProperty = (token, property, history) => dispatch => {
+    console.log(property);
     dispatch({ type: POST_PROPERTY_START });
     axiosWithAuth(token)
-      .post(`${url}/listings/insertlisting`, property)
+      .post(`${urlDs}/predict`, property)
       .then(res => {
-        console.log(res);
         setTimeout(() => {
           dispatch({ type: POST_PROPERTY_SUCCESS, payload: res.data });
-          history.push("/properties");
+          axiosWithAuth(token)
+            .post(`${urlServer}/listings/insertlisting`, res.data.replace(/'/g, '"'))
+            .then(res => {
+              console.log(res);
+              setTimeout(() => {
+                dispatch({ type: POST_PROPERTY_SUCCESS, payload: res.data });
+                history.push("/properties");
+              }, 1500);
+            })
+            .catch(err => dispatch({ type: POST_PROPERTY_ERROR }));
         }, 1500);
       })
       .catch(err => dispatch({ type: POST_PROPERTY_ERROR }));
 };
 
+// export const postProperty = (token, property, history) => dispatch => {
+//   console.log(property);
+//   dispatch({ type: POST_PROPERTY_START });
+//     axiosWithAuth(token)
+//       .post(`${urlServer}/listings/insertlisting`, property)
+//       .then(res => {
+//         console.log(res);
+//         setTimeout(() => {
+//           dispatch({ type: POST_PROPERTY_SUCCESS, payload: res.data });
+//           history.push("/properties");
+//         }, 1500);
+//       })
+//       .catch(err => dispatch({ type: POST_PROPERTY_ERROR }));
+// };
+
 export const EDIT_PROPERTY_START = "EDIT_PROPERTY_START";
-export const EDIT_PROPERTY_SUCCESS = "EDIT_PROPERTY_SUCCESS";
 export const EDIT_PROPERTY_ERROR = "EDIT_PROPERTY_ERROR";
 
 export const editProperty = (token, property, history) => dispatch => {
-  dispatch({ type: EDIT_PROPERTY_START });
+  dispatch({ type: EDIT_PROPERTY_START, payload: property });
+  history.push("/add");
+  // axiosWithAuth(token)
+  //   .put(`${url}/listings/updatelisting/${property.id}`, property)
+  //   .then(res => {
+  //     console.log(res);
+  //     setTimeout(() => {
+  //       dispatch({ type: EDIT_PROPERTY_SUCCESS, payload: res.data });
+  //       history.push("/properties");
+  //     }, 1500);
+  //   })
+  //   .catch(err => dispatch({ type: EDIT_PROPERTY_ERROR }));
+};
+
+export const SAVE_EDIT_PROPERTY_START = "SAVE_EDIT_PROPERTY_START";
+export const SAVE_EDIT_PROPERTY_SUCCESS = "SAVE_EDIT_PROPERTY_SUCCESS";
+export const SAVE_EDIT_PROPERTY_ERROR = "SAVE_EDIT_PROPERTY_ERROR";
+
+export const saveEditProperty = (token, property, history) => dispatch => {
+  dispatch({ type: SAVE_EDIT_PROPERTY_START });
   axiosWithAuth(token)
-    .put(`${url}/listings/updatelisting/${property.id}`, property)
+    .put(`${urlServer}/listings/updatelisting/${property.id}`, property)
     .then(res => {
       console.log(res);
       setTimeout(() => {
-        dispatch({ type: EDIT_PROPERTY_SUCCESS, payload: res.data });
+        dispatch({ type: SAVE_EDIT_PROPERTY_SUCCESS, payload: res.data });
         history.push("/properties");
       }, 1500);
     })
-    .catch(err => dispatch({ type: EDIT_PROPERTY_ERROR }));
+    .catch(err => dispatch({ type: SAVE_EDIT_PROPERTY_ERROR }));
 };
 
 export const DELETE_PROPERTY_START = "DELETE_PROPERTY_START";
 export const DELETE_PROPERTY_SUCCESS = "DELETE_PROPERTY_SUCCESS";
 export const DELETE_PROPERTY_ERROR = "DELETE_PROPERTY_ERROR";
 
-export const deleteProperty = (token, id) => dispatch => {
+export const deleteProperty = (token, property) => dispatch => {
   dispatch({ type: DELETE_PROPERTY_START });
   axiosWithAuth(token)
-    .delete(`${url}/listings/deletelisting/${id}`)
+    .delete(`${urlServer}/listings/deletelisting/${property.id}`)
     .then(res => {
       dispatch({ type: GET_PROPERTIES_START });
       axiosWithAuth(token)
-        .get(`${url}/listings`)
+        .get(`${urlServer}/listings`)
         .then(res => {
           setTimeout(() => {
             dispatch({ type: GET_PROPERTIES_SUCCESS, payload: res.data });

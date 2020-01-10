@@ -16,18 +16,19 @@ import {
 
 const PropertyList = props => {
 
-  const deletePropertyButton = (e, id) => {
+  const deletePropertyButton = (e, property) => {
     e.stopPropagation();
-    props.deleteProperty(localStorage.getItem("token"), id);
+    props.deleteProperty(localStorage.getItem("token"), property);
   };
 
-  const editPropertyButton = (e, id) => {
+  const editPropertyButton = (e, property) => {
     e.stopPropagation();
-    props.editProperty(localStorage.getItem("token"), id, props.history);
+    props.editProperty(localStorage.getItem("token"), property, props.history);
+    // props.editProperty(localStorage.getItem("token"), id, props.history);
   };
 
 	useEffect(() => {
-		props.getProperties(props.token);
+		props.getProperties(localStorage.getItem("token"));
 	}, []);
 	return (
     <>
@@ -38,7 +39,6 @@ const PropertyList = props => {
         </>
       ) : (
         <>
-          <h1>SUCCESS!</h1>
           {props.properties && props.properties.map(property => {
           return (
             <>
@@ -53,6 +53,7 @@ const PropertyList = props => {
                 bathrooms={property.bathrooms}
                 cleaning_fee={property.cleaning_fee}
                 minimum_nights={property.minimum_nights}
+                accommodates={property.accommodates}
                 instant_bookable={property.instant_bookable}
                 kitchen={property.kitchen}
                 smoke_detector={property.smoke_detector}
@@ -60,8 +61,9 @@ const PropertyList = props => {
                 hot_water={property.hot_water}
                 host_location={property.host_location}
                 host_response_rate={property.host_response_rate}
-                delete={e => deletePropertyButton(e, property.id)}
-                edit={e => editPropertyButton(e, property.id)}
+                predicted_price={property.predicted_price}
+                delete={e => deletePropertyButton(e, property)}
+                edit={e => editPropertyButton(e, property)}
               />
             </>
           );
