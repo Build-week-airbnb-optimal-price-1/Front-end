@@ -155,10 +155,7 @@ export const saveEditProperty = (token, property, history) => dispatch => {
           .then(res => {
             console.log(res);
             setTimeout(() => {
-              dispatch({
-                type: SAVE_EDIT_PROPERTY_SUCCESS,
-                payload: res.data
-              });
+              dispatch({ type: SAVE_EDIT_PROPERTY_SUCCESS, payload: res.data });
               history.push("/properties");
             }, 1500);
           })

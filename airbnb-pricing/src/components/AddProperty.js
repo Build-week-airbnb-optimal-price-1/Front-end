@@ -28,7 +28,7 @@ const AddProperty = props => {
     hot_water: props.editPropertyStart ? props.currentProperty.hot_water : 0,
     local_host: props.editPropertyStart ? props.currentProperty.local_host : 0,
     host_response_rate: props.editPropertyStart ? props.currentProperty.host_response_rate : 0,
-    id: Date.now(),
+    id: props.editPropertyStart ? props.currentProperty.id : Date.now(),
     user_id: parseInt(localStorage.getItem("user_id"))
   });
 	// Spread operator and Computed properties(ES6) - This is my changeHandler. It's still using my event from onChange but now I can dynamically set my keys in my objects with computed properties. 
@@ -355,7 +355,7 @@ const AddProperty = props => {
       ) : (
         <h1>Posting...</h1>
       )}
-      {props.postPropertyError || props.saveEditPropertyError && (
+      {(props.postPropertyError || props.saveEditPropertyError) && (
         <p style={{ color: "red", marginTop: "10vh" }}>
           Welp, looks like it's on fire again
         </p>
