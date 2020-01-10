@@ -2,7 +2,7 @@
 // List out properties
 // Maybe keep minimal information so that peple click through
 // Tyler
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Property from "./Property";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -29,7 +29,8 @@ const PropertyList = props => {
 
 	useEffect(() => {
 		props.getProperties(localStorage.getItem("token"));
-	}, []);
+  }, []);
+  
 	return (
     <>
       <h1> Tokyo Listings </h1>

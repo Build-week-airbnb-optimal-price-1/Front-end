@@ -16,7 +16,7 @@ const AddProperty = props => {
     summary: props.editPropertyStart ? props.currentProperty.summary : "",
     neighbourhood_cleansed: props.editPropertyStart ? props.currentProperty.neighbourhood_cleansed : "",
     property_type: props.editPropertyStart ? props.currentProperty.property_type : "",
-    room_type: props.editPropertyStart ? props.currentProperty.room_type : 0,
+    room_type: props.editPropertyStart ? props.currentProperty.room_type : "",
     bathrooms: props.editPropertyStart ? props.currentProperty.bathrooms : 0,
     cleaning_fee: props.editPropertyStart ? props.currentProperty.cleaning_fee : 0,
     minimum_nights: props.editPropertyStart ? props.currentProperty.minimum_nights : 0,
@@ -369,6 +369,7 @@ const mapStateToProps = state => ({
   postPropertyError: state.postPropertyError,
   postPropertyStart: state.postPropertyStart,
   editPropertyStart: state.editPropertyStart,
+  saveEditPropertyStart: state.saveEditPropertyStart,
   saveEditPropertyError: state.saveEditPropertyError,
   currentProperty: state.currentProperty
 });

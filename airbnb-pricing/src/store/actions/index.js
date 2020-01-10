@@ -148,14 +148,13 @@ export const saveEditProperty = (token, property, history) => dispatch => {
   axiosWithAuth(token)
     .post(`${urlDs}/predict`, property)
     .then(res => {
-      console.log(res);
       setTimeout(() => {
         axiosWithAuth(token)
           .put(`${urlServer}/listings/updatelisting/${property.id}`, res.data.replace(/'/g, '"'))
           .then(res => {
-            console.log(res);
+            console.log(res.data);
             setTimeout(() => {
-              dispatch({ type: SAVE_EDIT_PROPERTY_SUCCESS, payload: res.data });
+              dispatch({ type: SAVE_EDIT_PROPERTY_SUCCESS });
               history.push("/properties");
             }, 1500);
           })

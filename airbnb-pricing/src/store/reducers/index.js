@@ -155,8 +155,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         saveEditPropertyStart: false,
         saveEditPropertySuccess: true,
-        editPropertyStart: false,
-        properties: action.payload
+        editPropertyStart: false
       };
 
     case SAVE_EDIT_PROPERTY_ERROR:
