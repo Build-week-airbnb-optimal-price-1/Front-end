@@ -12,22 +12,22 @@ import { postProperty, saveEditProperty } from "../store/actions";
 const AddProperty = props => {
 	const [property, setProperty] = useState({
     photo: `https://picsum.photos/400/250?random=${Date.now()}`,
-    title: "",
-    summary: "",
-    neighbourhood_cleansed: "",
-    property_type: "",
-    room_type: "",
-    bathrooms: 0,
-    cleaning_fee: 0,
-    minimum_nights: 0,
-    instant_bookable: 0,
-    kitchen: 0,
-    smoke_detector: 0,
-    self_check_in: 0,
-    accommodates: 0,
-    hot_water: 0,
-    local_host: 0,
-    host_response_rate: 0,
+    title: props.editPropertyStart ? props.currentProperty.title : "",
+    summary: props.editPropertyStart ? props.currentProperty.summary : "",
+    neighbourhood_cleansed: props.editPropertyStart ? props.currentProperty.neighbourhood_cleansed : "",
+    property_type: props.editPropertyStart ? props.currentProperty.property_type : "",
+    room_type: props.editPropertyStart ? props.currentProperty.room_type : 0,
+    bathrooms: props.editPropertyStart ? props.currentProperty.bathrooms : 0,
+    cleaning_fee: props.editPropertyStart ? props.currentProperty.cleaning_fee : 0,
+    minimum_nights: props.editPropertyStart ? props.currentProperty.minimum_nights : 0,
+    instant_bookable: props.editPropertyStart ? props.currentProperty.instant_bookable : 0,
+    kitchen: props.editPropertyStart ? props.currentProperty.kitchen : 0,
+    smoke_detector: props.editPropertyStart ? props.currentProperty.smoke_detector : 0,
+    self_check_in: props.editPropertyStart ? props.currentProperty.self_check_in : 0,
+    accommodates: props.editPropertyStart ? props.currentProperty.accommodates : 0,
+    hot_water: props.editPropertyStart ? props.currentProperty.hot_water : 0,
+    local_host: props.editPropertyStart ? props.currentProperty.local_host : 0,
+    host_response_rate: props.editPropertyStart ? props.currentProperty.host_response_rate : 0,
     id: Date.now(),
     user_id: parseInt(localStorage.getItem("user_id"))
   });
@@ -66,18 +66,14 @@ const AddProperty = props => {
         <h1>ADD MODE</h1>
       )}
       {!props.postPropertyStart ? (
-        <form onSubmit={props.editPropertyStart ? submitForm : editForm}>
+        <form onSubmit={props.editPropertyStart ? editForm : submitForm}>
           <label htmlFor="title">Title</label>
           <input
             id="title"
             type="text"
             name="title"
             onChange={handleChanges}
-            value={
-              props.editPropertyStart
-                ? props.currentProperty.title
-                : property.title
-            }
+            value={property.title}
           />
           <label htmlFor="summary">Summary Description</label>
           <textarea
@@ -85,21 +81,13 @@ const AddProperty = props => {
             rows="4"
             cols="50"
             name="summary"
-            value={
-              props.editPropertyStart
-                ? props.currentProperty.summary
-                : property.summary
-            }
+            value={property.summary}
             onChange={handleChanges}
           />
           <label htmlFor="neighbourhood_cleansed">Neighborhood</label>
           <select
             onChange={handleChanges}
-            value={
-              props.editPropertyStart
-                ? props.currentProperty.neighbourhood_cleansed
-                : property.neighbourhood_cleansed
-            }
+            value={property.neighbourhood_cleansed}
             name="neighbourhood_cleansed"
             id="neighbourhood_cleansed"
           >
@@ -163,11 +151,7 @@ const AddProperty = props => {
           <label htmlFor="property_type">Property Type</label>
           <select
             onChange={handleChanges}
-            value={
-              props.editPropertyStart
-                ? props.currentProperty.property_type
-                : property.property_type
-            }
+            value={property.property_type}
             name="property_type"
             id="property_type"
           >
@@ -181,11 +165,7 @@ const AddProperty = props => {
           <label htmlFor="room_type">Room Type</label>
           <select
             onChange={handleChanges}
-            value={
-              props.editPropertyStart
-                ? props.currentProperty.room_type
-                : property.room_type
-            }
+            value={property.room_type}
             name="room_type"
             id="room_type"
           >
@@ -199,55 +179,35 @@ const AddProperty = props => {
           <input
             id="bathrooms"
             name="bathrooms"
-            value={
-              props.editPropertyStart
-                ? props.currentProperty.bathrooms
-                : property.bathrooms
-            }
+            value={property.bathrooms}
             onChange={handleNumbers}
           />
           <label htmlFor="cleaning_fee">Cleaning Fee</label>
           <input
             id="cleaning_fee"
             name="cleaning_fee"
-            value={
-              props.editPropertyStart
-                ? props.currentProperty.cleaning_fee
-                : property.cleaning_fee
-            }
+            value={property.cleaning_fee}
             onChange={handleNumbers}
           />
           <label htmlFor="minimum_nights">Minimum Night Stay</label>
           <input
             id="minimum_nights"
             name="minimum_nights"
-            value={
-              props.editPropertyStart
-                ? props.currentProperty.minimum_nights
-                : property.minimum_nights
-            }
+            value={property.minimum_nights}
             onChange={handleNumbers}
           />
           <label htmlFor="accommodates">Number of Guests Allowed?</label>
           <input
             id="accommodates"
             name="accommodates"
-            value={
-              props.editPropertyStart
-                ? props.currentProperty.accommodates
-                : property.accommodates
-            }
+            value={property.accommodates}
             onChange={handleNumbers}
           />
           <label htmlFor="instant_bookable">Instant Book?</label>
           <input
             id="instant_bookable"
             name="instant_bookable"
-            value={
-              props.editPropertyStart
-                ? props.currentProperty.instant_bookable
-                : property.instant_bookable
-            }
+            value={property.instant_bookable}
             type="checkbox"
             onClick={handleClick}
           />
@@ -395,7 +355,7 @@ const AddProperty = props => {
       ) : (
         <h1>Posting...</h1>
       )}
-      {props.postPropertyError && (
+      {props.postPropertyError || props.saveEditPropertyError && (
         <p style={{ color: "red", marginTop: "10vh" }}>
           Welp, looks like it's on fire again
         </p>
@@ -409,6 +369,7 @@ const mapStateToProps = state => ({
   postPropertyError: state.postPropertyError,
   postPropertyStart: state.postPropertyStart,
   editPropertyStart: state.editPropertyStart,
+  saveEditPropertyError: state.saveEditPropertyError,
   currentProperty: state.currentProperty
 });
 

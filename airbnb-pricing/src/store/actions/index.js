@@ -77,7 +77,6 @@ export const postProperty = (token, property, history) => dispatch => {
       .post(`${urlDs}/predict`, property)
       .then(res => {
         setTimeout(() => {
-          dispatch({ type: POST_PROPERTY_SUCCESS, payload: res.data });
           axiosWithAuth(token)
             .post(`${urlServer}/listings/insertlisting`, res.data.replace(/'/g, '"'))
             .then(res => {
@@ -130,15 +129,40 @@ export const SAVE_EDIT_PROPERTY_START = "SAVE_EDIT_PROPERTY_START";
 export const SAVE_EDIT_PROPERTY_SUCCESS = "SAVE_EDIT_PROPERTY_SUCCESS";
 export const SAVE_EDIT_PROPERTY_ERROR = "SAVE_EDIT_PROPERTY_ERROR";
 
+// export const saveEditProperty = (token, property, history) => dispatch => {
+//   dispatch({ type: SAVE_EDIT_PROPERTY_START });
+//   axiosWithAuth(token)
+//     .put(`${urlServer}/listings/updatelisting/${property.id}`, property)
+//     .then(res => {
+//       console.log(res);
+//       setTimeout(() => {
+//         dispatch({ type: SAVE_EDIT_PROPERTY_SUCCESS, payload: res.data });
+//         history.push("/properties");
+//       }, 1500);
+//     })
+//     .catch(err => dispatch({ type: SAVE_EDIT_PROPERTY_ERROR }));
+// };
+
 export const saveEditProperty = (token, property, history) => dispatch => {
   dispatch({ type: SAVE_EDIT_PROPERTY_START });
   axiosWithAuth(token)
-    .put(`${urlServer}/listings/updatelisting/${property.id}`, property)
+    .post(`${urlDs}/predict`, property)
     .then(res => {
       console.log(res);
       setTimeout(() => {
-        dispatch({ type: SAVE_EDIT_PROPERTY_SUCCESS, payload: res.data });
-        history.push("/properties");
+        axiosWithAuth(token)
+          .put(`${urlServer}/listings/updatelisting/${property.id}`, res.data.replace(/'/g, '"'))
+          .then(res => {
+            console.log(res);
+            setTimeout(() => {
+              dispatch({
+                type: SAVE_EDIT_PROPERTY_SUCCESS,
+                payload: res.data
+              });
+              history.push("/properties");
+            }, 1500);
+          })
+          .catch(err => dispatch({ type: SAVE_EDIT_PROPERTY_ERROR }));
       }, 1500);
     })
     .catch(err => dispatch({ type: SAVE_EDIT_PROPERTY_ERROR }));
