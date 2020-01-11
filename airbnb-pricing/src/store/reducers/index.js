@@ -11,6 +11,11 @@ import {
   POST_PROPERTY_START,
   POST_PROPERTY_SUCCESS,
   POST_PROPERTY_ERROR,
+  EDIT_PROPERTY_START,
+  EDIT_PROPERTY_ERROR,
+  SAVE_EDIT_PROPERTY_START,
+  SAVE_EDIT_PROPERTY_SUCCESS,
+  SAVE_EDIT_PROPERTY_ERROR,
   DELETE_PROPERTY_START,
   DELETE_PROPERTY_SUCCESS,
   DELETE_PROPERTY_ERROR,
@@ -20,6 +25,7 @@ import {
 const initialState = {
   username: "",
   password: "",
+  currentProperty: null,
   properties: null,
   loginStart: false,
   loginError: false,
@@ -31,6 +37,11 @@ const initialState = {
   postPropertyStart: false,
   postPropertySuccess: false,
   postPropertyError: false,
+  editPropertyStart: false,
+  editPropertyError: false,
+  saveEditPropertyStart: false,
+  saveEditPropertySuccess: false,
+  saveEditPropertyError: false,
   deletePropertyStart: false,
   deletePropertySuccess: false,
   deletePropertyError: false
@@ -117,6 +128,42 @@ const reducer = (state = initialState, action) => {
         ...state,
         postPropertyStart: false,
         postPropertyError: true
+      };
+
+    case EDIT_PROPERTY_START:
+      return {
+        ...state,
+        editPropertyStart: true,
+        currentProperty: action.payload
+      };
+
+    case EDIT_PROPERTY_ERROR:
+      return {
+        ...state,
+        editPropertyStart: false,
+        editPropertyError: true
+      };
+
+    case SAVE_EDIT_PROPERTY_START:
+      return {
+        ...state,
+        saveEditPropertyStart: true
+      };
+
+    case SAVE_EDIT_PROPERTY_SUCCESS:
+      return {
+        ...state,
+        saveEditPropertyStart: false,
+        saveEditPropertySuccess: true,
+        editPropertyStart: false
+      };
+
+    case SAVE_EDIT_PROPERTY_ERROR:
+      return {
+        ...state,
+        saveEditPropertyStart: false,
+        editPropertyStart: false,
+        saveEditPropertyError: true
       };
 
     case DELETE_PROPERTY_START:
