@@ -69,6 +69,7 @@ const AddProperty = props => {
         <form onSubmit={props.editPropertyStart ? editForm : submitForm}>
           <label htmlFor="title">Title</label>
           <input
+          	required
             id="title"
             type="text"
             name="title"
