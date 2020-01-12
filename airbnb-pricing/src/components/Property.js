@@ -13,7 +13,7 @@ import React from "react";
         <img src={props.photo} alt="Hosts showing their property" />
         <h2>{props.title}</h2>
         <h3>
-          Predicted Price (in yen): ¥{props.predicted_price} (~$
+          Predicted Price (in yen): ¥{props.predicted_price.toFixed(2)} (~$
           {(props.predicted_price * 0.0091).toFixed(2)})
         </h3>
         <div className="property-info">
