@@ -17,16 +17,18 @@ function App(props) {
   return (
     <Router>
       <Switch>
-        {/* <PrivateRoute path="/properties" exact component={PropertyList} />
+        <PrivateRoute
+          path="/properties"
+          exact
+          component={localStorage.getItem("token") ? PropertyList : Signup}
+        />
         <PrivateRoute
           path="/add"
           exact
           component={localStorage.getItem("token") ? AddProperty : Signup}
-        /> */}
-        <PrivateRoute path="/properties" exact component={PropertyList} />
-        <PrivateRoute path="/add" exact component={AddProperty} />
-        {/* <Route path="/properties" component={PropertyList} />
-        <Route path="/add" component={AddProperty} /> */}
+        />
+        {/* <PrivateRoute path="/properties" exact component={PropertyList} />
+        <PrivateRoute path="/add" exact component={AddProperty} /> */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
       </Switch>

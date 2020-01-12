@@ -99,6 +99,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         getPropertiesStart: false,
+        editPropertyStart: false,
+        saveEditPropertyStart: false,
         properties: action.payload
       };
 
