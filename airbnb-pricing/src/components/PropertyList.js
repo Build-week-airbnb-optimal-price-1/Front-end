@@ -4,6 +4,7 @@
 // Tyler
 import React, { useEffect } from "react";
 import Property from "./Property";
+import Header from "./Header";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import {
@@ -11,8 +12,15 @@ import {
   deleteProperty,
   editProperty
 } from "../store/actions";
+import style from "styled-components";
+
 //import axios from "axios";
 //import Spinner from "react-spinner";
+
+const Loading = style.div`
+  margin: 200px auto;
+  text-align: center;
+`;
 
 const PropertyList = props => {
 
@@ -33,10 +41,10 @@ const PropertyList = props => {
   
 	return (
     <>
-      <h1> Tokyo Listings </h1>
+      <Header />
       {props.getPropertiesStart ? (
         <>
-          <h1>Loading...</h1>
+          <Loading>Loading...</Loading>
         </>
       ) : (
         <>

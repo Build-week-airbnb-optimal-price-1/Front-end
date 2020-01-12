@@ -52,9 +52,9 @@ export const GET_PROPERTIES_ERROR = "GET_PROPERTIES_ERROR";
 
 export const getProperties = (token) => dispatch => {
   dispatch({ type: GET_PROPERTIES_START });
-
+  const userId = localStorage.getItem("user_id");
   axiosWithAuth(token)
-    .get(`${urlServer}/listings`)
+    .get(`${urlServer}/listings/${userId}`)
     .then(res => {
       setTimeout(() => {
         dispatch({ type: GET_PROPERTIES_SUCCESS, payload: res.data });
@@ -193,5 +193,6 @@ export const LOGOUT = "LOGOUT";
 
 export const logout = history => dispatch => {
   dispatch({ type: LOGOUT });
+  localStorage.removeItem("token");
   history.push("/login");
 };

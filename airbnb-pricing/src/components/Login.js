@@ -7,7 +7,6 @@ import style from "styled-components";
 const LoginContainer = style.div`
   display: flex;
   height: 100%;
-  // flex: 2;
 `;
 
 const LoginLeft = style.div`
@@ -41,11 +40,6 @@ const StyleLogin = style.form`
   height: 350px;
   border-radius: 1px;
   background: #fff;
-`;
-
-const Image = style.img`
-  styles
-  margin-right: 1000px;
 `;
 
 const Title = style.h1`
@@ -128,7 +122,7 @@ function Login(props) {
       <LoginContainer>
         <LoginLeft>
           <StyleLogin onSubmit={onSubmit}>
-            <Image src="images/Logo.svg" />
+            <img src="images/Logo.svg" />
             <Title>Airbnb Pricer</Title>
             <Label>Username</Label>
             <StyleInput
