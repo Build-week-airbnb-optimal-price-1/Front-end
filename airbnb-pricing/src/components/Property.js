@@ -90,6 +90,9 @@ const EditButton = style.button`
   color: #fff;
   background-color: #2281bf;
   cursor: pointer;
+  &:hover {
+    background-color: #249EEE;
+  }
 `;
 
 const PropertyRecommendedPrice = style.div`
@@ -128,6 +131,10 @@ const DeleteButton = style.button`
   color: #d6251c;
   background-color: #fff;
   cursor: pointer;
+  &:hover {
+    background-color: #d6251c;
+    color: #fff;
+  }
 `;
 
  const Property = props => {

@@ -50,7 +50,7 @@ const PropertyList = props => {
         </>
       ) : (
         <>
-          {props.properties && props.properties.map(property => {
+          {props.properties && (props.properties.length > 0) ? (props.properties.map(property => {
             return (
               <>
                 <Property
@@ -78,7 +78,11 @@ const PropertyList = props => {
                 />
               </>
             );
-          })
+          })) : (
+              <>
+                <Loading>No properties! Maybe try and add one...</Loading>
+              </>
+          )
         }
         </>
       )}
