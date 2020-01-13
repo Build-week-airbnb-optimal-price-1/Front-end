@@ -57,6 +57,9 @@ const LinkButton = style(Link)`
     &:disabled {
       opacity: .5;
     }
+    &:hover {
+        background-color: #249EEE;
+    }
   }
 `;
 

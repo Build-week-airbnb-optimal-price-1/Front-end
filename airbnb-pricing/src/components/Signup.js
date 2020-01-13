@@ -76,6 +76,9 @@ const Button = style.button`
     &:disabled {
       opacity: .5;
     }
+    &:hover {
+      background-color: #249EEE;
+    }
   }
 `;
 
