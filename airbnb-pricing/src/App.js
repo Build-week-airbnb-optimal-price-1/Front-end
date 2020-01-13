@@ -6,7 +6,8 @@ import {
   BrowserRouter as Router,
   Route,
   withRouter,
-  Switch
+  Switch,
+  Redirect
 } from "react-router-dom";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
@@ -31,6 +32,13 @@ function App(props) {
         <PrivateRoute path="/add" exact component={AddProperty} /> */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route
+          exact
+          path="/"
+          render={() =>
+            localStorage.getItem("token") ? <Redirect to="/properties" /> : <Signup />
+          }
+        />
       </Switch>
     </Router>
   );
