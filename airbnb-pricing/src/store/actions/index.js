@@ -22,8 +22,8 @@ export const login = (creds, history) => dispatch => {
         setTimeout(() => {
           dispatch({ type: LOGIN_SUCCESS });
           history.push("/properties");
-        }, 1500);
-      }, 1500);
+        }, 1000);
+      }, 1000);
     })
     .catch(err => dispatch({ type: LOGIN_ERROR }));
 };
@@ -43,7 +43,7 @@ export const signup = (creds, history) => dispatch => {
         dispatch({ type: SIGNUP_SUCCESS });
         localStorage.setItem("token", res.data.token);
         history.push("/login");
-      }, 1500);
+      }, 1000);
     })
     .catch(err => dispatch({ type: SIGNUP_ERROR }));
 };
@@ -61,7 +61,7 @@ export const getProperties = (token) => dispatch => {
       console.log(res.data);
       setTimeout(() => {
         dispatch({ type: GET_PROPERTIES_SUCCESS, payload: res.data });
-      }, 1500);
+      }, 1000);
     })
     .catch(err => {
       dispatch({ type: GET_PROPERTIES_ERROR });
@@ -87,10 +87,10 @@ export const postProperty = (token, property, history) => dispatch => {
               setTimeout(() => {
                 dispatch({ type: POST_PROPERTY_SUCCESS });
                 history.push("/properties");
-              }, 1500);
+              }, 1000);
             })
             .catch(err => dispatch({ type: POST_PROPERTY_ERROR }));
-        }, 1500);
+        }, 1000);
       })
       .catch(err => dispatch({ type: POST_PROPERTY_ERROR }));
 };
@@ -159,10 +159,10 @@ export const saveEditProperty = (token, property, history) => dispatch => {
             setTimeout(() => {
               dispatch({ type: SAVE_EDIT_PROPERTY_SUCCESS });
               history.push("/properties");
-            }, 1500);
+            }, 1000);
           })
           .catch(err => dispatch({ type: SAVE_EDIT_PROPERTY_ERROR }));
-      }, 1500);
+      }, 1000);
     })
     .catch(err => dispatch({ type: SAVE_EDIT_PROPERTY_ERROR }));
 };
