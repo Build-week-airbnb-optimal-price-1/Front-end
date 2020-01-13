@@ -36,8 +36,8 @@ const PropertyList = props => {
   };
 
 	useEffect(() => {
-		props.getProperties(localStorage.getItem("token"));
-  }, []);
+    props.getProperties(localStorage.getItem("token"));
+  }, [props.postPropertySuccess || props.saveEditPropertySuccess]);
   
 	return (
     <>
@@ -89,7 +89,9 @@ const PropertyList = props => {
 const mapStateToProps = state => ({
   token: state.token,
   properties: state.properties,
-  getPropertiesStart: state.getPropertiesStart
+  getPropertiesStart: state.getPropertiesStart,
+  postPropertySuccess: state.postPropertySuccess,
+  saveEditPropertySuccess: state.saveEditPropertySuccess
 });
 
 export default connect(mapStateToProps, { getProperties, deleteProperty, editProperty })(

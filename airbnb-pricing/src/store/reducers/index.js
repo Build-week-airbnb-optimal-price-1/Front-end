@@ -33,6 +33,7 @@ const initialState = {
   signupNew: false,
   signupError: false,
   getPropertiesStart: false,
+  getPropertiesSuccess: false,
   getPropertiesError: false,
   postPropertyStart: false,
   postPropertySuccess: false,
@@ -92,13 +93,15 @@ const reducer = (state = initialState, action) => {
     case GET_PROPERTIES_START:
       return {
         ...state,
-        getPropertiesStart: true
+        getPropertiesStart: true,
+        getPropertiesSuccess: false
       };
 
     case GET_PROPERTIES_SUCCESS:
       return {
         ...state,
         getPropertiesStart: false,
+        getPropertiesSuccess: true,
         editPropertyStart: false,
         saveEditPropertyStart: false,
         properties: action.payload
@@ -121,8 +124,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         postPropertyStart: false,
-        postPropertySuccess: true,
-        properties: action.payload
+        postPropertySuccess: true
       };
 
     case POST_PROPERTY_ERROR:

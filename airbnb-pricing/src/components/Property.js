@@ -168,33 +168,31 @@ const DeleteButton = style.button`
               <PropertyListItem>
                 <PropertyDetail>Bathrooms</PropertyDetail>
                 <PropertyMetric>
-                  {props.bathrooms === "" ? "N/A" : props.bathrooms}
+                  {props.bathrooms}
                 </PropertyMetric>
               </PropertyListItem>
               <PropertyListItem>
                 <PropertyDetail>Cleaning Fee Amount</PropertyDetail>
                 <PropertyMetric>
-                  {props.cleaning_fee === "" ? "N/A" : props.cleaning_fee}
+                  {props.cleaning_fee}
                 </PropertyMetric>
               </PropertyListItem>
               <PropertyListItem>
                 <PropertyDetail>Minimum Night Stay</PropertyDetail>
                 <PropertyMetric>
-                  {props.minimum_nights === "" ? "N/A" : props.minimum_nights}
+                  {props.minimum_nights}
                 </PropertyMetric>
               </PropertyListItem>
               <PropertyListItem>
                 <PropertyDetail>Number of Guests Allowed?</PropertyDetail>
                 <PropertyMetric>
-                  {props.accommodates === "" ? "N/A" : props.accommodates}
+                  {props.accommodates}
                 </PropertyMetric>
               </PropertyListItem>
               <PropertyListItem>
                 <PropertyDetail>Host Response Rate</PropertyDetail>
                 <PropertyMetric>
-                  {props.host_response_rate === ""
-                    ? "N/A"
-                    : props.host_response_rate}
+                  {props.host_response_rate}
                 </PropertyMetric>
               </PropertyListItem>
             </PropertyList>
