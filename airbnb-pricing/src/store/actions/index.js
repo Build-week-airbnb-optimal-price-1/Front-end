@@ -18,10 +18,12 @@ export const login = (creds, history) => dispatch => {
     .then(res => {
       console.log(res);
       setTimeout(() => {
-        dispatch({ type: LOGIN_SUCCESS });
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("user_id", res.data.user_id);
-        history.push("/properties");
+        setTimeout(() => {
+          dispatch({ type: LOGIN_SUCCESS });
+          history.push("/properties");
+        }, 1500);
       }, 1500);
     })
     .catch(err => dispatch({ type: LOGIN_ERROR }));
