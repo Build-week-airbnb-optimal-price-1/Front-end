@@ -1,55 +1,102 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { login } from "../store/actions";
 import style from "styled-components";
 
-const StyleLogin = style.form`
+const LoginContainer = style.div`
+  display: flex;
+  height: 100%;
+`;
+
+const LoginLeft = style.div`
+  width: 33.33%;
   display: flex;
   align-items: center;
-  flex-flow: column;
-  width: 1364px;
-  height: 814px;
-  margin: 0 auto;
-  border: 2px solid #FF8C00;
-  border-radius: 1px;
-  background: #eee;
+  justify-content: center;
+  flex-direction: column;
 `;
 
-const Image = style.img`
-  styles
-  margin-right: 1000px;
-`;
-
-const Title = style.label`
+const LoginRight = style.div`
+  width: 66.66%;
   display: flex;
-  color: gray;
-  margin-right: 1000px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #e85120;
+`;
+
+const Quote = style.h2`
+  width: 347px;
+  height: 210px;
+  font-weight: 500;
+  color: #fff;
+  font-size: 24px;
+  line-height: 1.5;
+`;
+
+const StyleLogin = style.form`
+  width: 222px;
+  height: 350px;
+  border-radius: 1px;
+  background: #fff;
+`;
+
+const Title = style.h1`
+  font-size: 26px;
+  font-weight: 900;
+  color: #363131;
+`;
+
+const Label = style.label`
+  font-size: 12px;
+  font-weight: 600;
+  color: #8f8d8d;
+  margin-top: 10px;
+`;
+
+const Details = style.p`
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  color: #8f8d8d;
 `;
 
 const Button = style.button`
-    background: blue;
+    background-color: #2281bf;
     color: #fff;
     padding: 10px;
-    margin: 5px;
-    width: 150px;
+    width: 100%;
     border: none;
-    border-radius: 3px;
-    box-sizing: border-box;
-    margin-right: 1000px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
     margin-top: 10px;
+    cursor: pointer;
+    &:disabled {
+      opacity: .5;
+    }
   }
 `;
 
 const StyleInput = style.input`
   border: 1px solid #a9a9a9;
-  border-radius: 3px;
   padding: 10px;
-  margin: 5px;
-  width: 150px;
+  width: 100%;
+  border-radius: 3px;
+  border: solid 1px #e2e0e0;
+  background-color: #f3f3f3;
   box-sizing: border-box;
-  margin-right: 1000px;
   margin-top: 10px;
+`;
+
+const StyleLink = style(Link)`
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  color: #2281bf;
+  display: block;
 `;
 
 function Login(props) {
@@ -72,29 +119,46 @@ function Login(props) {
 
   return (
     <>
-      <StyleLogin onSubmit={onSubmit}>
-        <Image src="images/Logo.svg" />
-        <Title>Aribnb Pricer</Title>
-        <Title>Username</Title>
-        <StyleInput
-          required
-          type="text"
-          name="username"
-          placeholder="username"
-          value={creds.username}
-          onChange={handleChange}></StyleInput>
-        <Title>Password</Title>
-        <StyleInput
-          required
-          type="password"
-          name="password"
-          placeholder="password"
-          value={creds.password}
-          onChange={handleChange}></StyleInput>
-        <Button type="submit"> Register </Button>
-        <Title>Have an account?</Title>
-        <Title>Login</Title>
-      </StyleLogin>
+      <LoginContainer>
+        <LoginLeft>
+          <StyleLogin onSubmit={onSubmit}>
+            <img src="images/Logo.svg" />
+            <Title>Airbnb Pricer</Title>
+            <Label>Username</Label>
+            <StyleInput
+              required
+              type="text"
+              name="username"
+              value={creds.username}
+              onChange={handleChange}
+            ></StyleInput>
+            <Label>Password</Label>
+            <StyleInput
+              required
+              type="password"
+              name="password"
+              value={creds.password}
+              onChange={handleChange}
+            ></StyleInput>
+            {props.loginStart ? (
+              <Button type="submit" disabled>
+                Loading...
+              </Button>
+            ) : (
+              <Button type="submit">Login</Button>
+            )}
+            <Details>Need an account?</Details>
+            <StyleLink to={`/signup`}>Sign Up</StyleLink>
+          </StyleLogin>
+        </LoginLeft>
+        <LoginRight>
+          <Quote>
+            “Within 15 minutes of using Airbnb Pricer, I was transformed. Where
+            before I was but a child, I was now able to stare into the
+            transcendence of infinity. “
+          </Quote>
+        </LoginRight>
+      </LoginContainer>
       {props.loginError && (
         <p style={{ color: "red", marginTop: "10vh" }}>
           There has been an issue logging in. Please check your credentials.
@@ -105,6 +169,7 @@ function Login(props) {
 }
 
 const mapStateToProps = state => ({
+  loginStart: state.loginStart,
   loginError: state.loginError
 });
 

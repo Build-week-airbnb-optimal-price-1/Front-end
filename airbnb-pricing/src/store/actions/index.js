@@ -5,6 +5,7 @@ import { axiosWithAuth } from "../../utils/axiosWithAuth";
 
 const urlServer = "https://carl-shouts.herokuapp.com/api";
 const urlDs = "https://ds-unit4-bw-airbnb.herokuapp.com";
+const userId = localStorage.getItem("user_id");
 
 export const LOGIN_START = "LOGIN_START";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
@@ -17,10 +18,12 @@ export const login = (creds, history) => dispatch => {
     .then(res => {
       console.log(res);
       setTimeout(() => {
-        dispatch({ type: LOGIN_SUCCESS });
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("user_id", res.data.user_id);
-        history.push("/properties");
+        setTimeout(() => {
+          dispatch({ type: LOGIN_SUCCESS });
+          history.push("/properties");
+        }, 1500);
       }, 1500);
     })
     .catch(err => dispatch({ type: LOGIN_ERROR }));
@@ -52,9 +55,8 @@ export const GET_PROPERTIES_ERROR = "GET_PROPERTIES_ERROR";
 
 export const getProperties = (token) => dispatch => {
   dispatch({ type: GET_PROPERTIES_START });
-
   axiosWithAuth(token)
-    .get(`${urlServer}/listings`)
+    .get(`${urlServer}/listings/${userId}`)
     .then(res => {
       setTimeout(() => {
         dispatch({ type: GET_PROPERTIES_SUCCESS, payload: res.data });
@@ -175,7 +177,7 @@ export const deleteProperty = (token, property) => dispatch => {
     .then(res => {
       dispatch({ type: GET_PROPERTIES_START });
       axiosWithAuth(token)
-        .get(`${urlServer}/listings`)
+        .get(`${urlServer}/listings/${userId}`)
         .then(res => {
           setTimeout(() => {
             dispatch({ type: GET_PROPERTIES_SUCCESS, payload: res.data });
@@ -193,5 +195,7 @@ export const LOGOUT = "LOGOUT";
 
 export const logout = history => dispatch => {
   dispatch({ type: LOGOUT });
+  localStorage.removeItem("token");
+  localStorage.removeItem("user_id");
   history.push("/login");
 };
