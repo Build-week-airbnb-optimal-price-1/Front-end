@@ -37,7 +37,9 @@ const PropertyList = props => {
 
 	useEffect(() => {
     props.getProperties(localStorage.getItem("token"));
-  }, [props.postPropertySuccess || props.saveEditPropertySuccess]);
+  }, [props.postPropertySuccess]);
+
+  //, props.saveEditPropertySuccess, props.loginSuccess
   
 	return (
     <>
@@ -48,7 +50,7 @@ const PropertyList = props => {
         </>
       ) : (
         <>
-          {props.properties ? (props.properties.map(property => {
+          {props.properties && props.properties.map(property => {
             return (
               <>
                 <Property
@@ -76,9 +78,7 @@ const PropertyList = props => {
                 />
               </>
             );
-          })) : (
-            <Loading>No Properties! Try adding one...</Loading>
-          )
+          })
         }
         </>
       )}
@@ -91,7 +91,8 @@ const mapStateToProps = state => ({
   properties: state.properties,
   getPropertiesStart: state.getPropertiesStart,
   postPropertySuccess: state.postPropertySuccess,
-  saveEditPropertySuccess: state.saveEditPropertySuccess
+  saveEditPropertySuccess: state.saveEditPropertySuccess,
+  loginSuccess: state.loginSuccess
 });
 
 export default connect(mapStateToProps, { getProperties, deleteProperty, editProperty })(

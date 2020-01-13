@@ -5,7 +5,6 @@ import { axiosWithAuth } from "../../utils/axiosWithAuth";
 
 const urlServer = "https://carl-shouts.herokuapp.com/api";
 const urlDs = "https://ds-unit4-bw-airbnb.herokuapp.com";
-const userId = localStorage.getItem("user_id");
 
 export const LOGIN_START = "LOGIN_START";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
@@ -54,13 +53,15 @@ export const GET_PROPERTIES_SUCCESS = "GET_PROPERTIES_SUCCESS";
 export const GET_PROPERTIES_ERROR = "GET_PROPERTIES_ERROR";
 
 export const getProperties = (token) => dispatch => {
+  const userId = localStorage.getItem("user_id");
   dispatch({ type: GET_PROPERTIES_START });
   axiosWithAuth(token)
     .get(`${urlServer}/listings/${userId}`)
     .then(res => {
+      console.log(res.data);
       setTimeout(() => {
         dispatch({ type: GET_PROPERTIES_SUCCESS, payload: res.data });
-      }, 1000);
+      }, 1500);
     })
     .catch(err => {
       dispatch({ type: GET_PROPERTIES_ERROR });
@@ -84,7 +85,7 @@ export const postProperty = (token, property, history) => dispatch => {
             .then(res => {
               console.log(res);
               setTimeout(() => {
-                dispatch({ type: POST_PROPERTY_SUCCESS, payload: res.data });
+                dispatch({ type: POST_PROPERTY_SUCCESS });
                 history.push("/properties");
               }, 1500);
             })
@@ -171,6 +172,7 @@ export const DELETE_PROPERTY_SUCCESS = "DELETE_PROPERTY_SUCCESS";
 export const DELETE_PROPERTY_ERROR = "DELETE_PROPERTY_ERROR";
 
 export const deleteProperty = (token, property) => dispatch => {
+  const userId = localStorage.getItem("user_id");
   dispatch({ type: DELETE_PROPERTY_START });
   axiosWithAuth(token)
     .delete(`${urlServer}/listings/deletelisting/${property.id}`)
