@@ -3,7 +3,7 @@
 //  Also have areas for returning pricing recommendations for property
 //  Buttons for editing and deleting
 import React from "react";
-
+import styled from 'styled-components';
 
  const Property = props => {
 

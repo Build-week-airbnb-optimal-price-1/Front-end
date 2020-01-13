@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { getProperties } from "../store/actions";
 import { deleteProperty } from "../store/actions";
+import styled from 'styled-components';
 //import axios from "axios";
 //import Spinner from "react-spinner";
 
