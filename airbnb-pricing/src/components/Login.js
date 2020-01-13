@@ -147,6 +147,12 @@ function Login(props) {
             ) : (
               <Button type="submit">Login</Button>
             )}
+            {props.loginError && (
+              <p style={{ color: "red", textAlign: "center", marginTop: "10px" }}>
+                There has been an issue logging in. Please check your
+                credentials.
+              </p>
+            )}
             <Details>Need an account?</Details>
             <StyleLink to={`/signup`}>Sign Up</StyleLink>
           </StyleLogin>
@@ -159,11 +165,6 @@ function Login(props) {
           </Quote>
         </LoginRight>
       </LoginContainer>
-      {props.loginError && (
-        <p style={{ color: "red", marginTop: "10vh" }}>
-          There has been an issue logging in. Please check your credentials.
-        </p>
-      )}
     </>
   );
 }

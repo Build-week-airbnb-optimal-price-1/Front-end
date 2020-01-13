@@ -147,6 +147,14 @@ function Signup(props) {
             ) : (
               <Button type="submit">Sign up</Button>
             )}
+            {props.signupError && (
+              <p
+                style={{ color: "red", textAlign: "center", marginTop: "10px" }}
+              >
+                There has been an issue signing up. Please alert your local
+                government.
+              </p>
+            )}
             <Details>Have an account?</Details>
             <StyleLink to={`/login`}>Login</StyleLink>
           </StyleLogin>
@@ -159,12 +167,6 @@ function Signup(props) {
           </Quote>
         </LoginRight>
       </LoginContainer>
-      {props.signupError && (
-        <p style={{ color: "red", marginTop: "10vh" }}>
-          There has been an issue signing up. Please alert your local
-          government.
-        </p>
-      )}
     </>
   );
 }

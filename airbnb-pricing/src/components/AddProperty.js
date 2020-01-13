@@ -445,18 +445,18 @@ const AddProperty = props => {
             ) : (
               <Button type="submit">Submit</Button>
             )}
+            {(props.postPropertyError || props.saveEditPropertyError) && (
+              <p style={{ color: "red", textAlign: "center", marginTop: "10px" }}>
+                Welp, looks like it's on fire again
+              </p>
+            )}
           </FormContainer>
         </FormLeft>
         <FormRight>
           <Quote>
-            Fill the fields to get an accurate pricing recommendation for your property in Tokyo
+            Fill all those sick fields with hella information so that we give you a bomb ass recommendation for pricing that property, yo
           </Quote>
         </FormRight>
-        {(props.postPropertyError || props.saveEditPropertyError) && (
-          <p style={{ color: "red", marginTop: "10vh" }}>
-            Welp, looks like it's on fire again
-          </p>
-        )}
       </AddEditContainer>
     </>
   );
