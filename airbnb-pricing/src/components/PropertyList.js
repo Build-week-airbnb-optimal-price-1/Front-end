@@ -48,35 +48,38 @@ const PropertyList = props => {
         </>
       ) : (
         <>
-          {props.properties && props.properties.map(property => {
-          return (
-            <>
-              <Property
-                key={property.id}
-                photo={property.photo}
-                title={property.title}
-                summary={property.summary}
-                neighbourhood_cleansed={property.neighbourhood_cleansed}
-                property_type={property.property_type}
-                room_type={property.room_type}
-                bathrooms={property.bathrooms}
-                cleaning_fee={property.cleaning_fee}
-                minimum_nights={property.minimum_nights}
-                accommodates={property.accommodates}
-                instant_bookable={property.instant_bookable}
-                kitchen={property.kitchen}
-                smoke_detector={property.smoke_detector}
-                self_check_in={property.self_check_in}
-                hot_water={property.hot_water}
-                host_location={property.host_location}
-                host_response_rate={property.host_response_rate}
-                predicted_price={property.predicted_price}
-                delete={e => deletePropertyButton(e, property)}
-                edit={e => editPropertyButton(e, property)}
-              />
-            </>
-          );
-          })}
+          {props.properties ? (props.properties.map(property => {
+            return (
+              <>
+                <Property
+                  key={property.id}
+                  photo={property.photo}
+                  title={property.title}
+                  summary={property.summary}
+                  neighbourhood_cleansed={property.neighbourhood_cleansed}
+                  property_type={property.property_type}
+                  room_type={property.room_type}
+                  bathrooms={property.bathrooms}
+                  cleaning_fee={property.cleaning_fee}
+                  minimum_nights={property.minimum_nights}
+                  accommodates={property.accommodates}
+                  instant_bookable={property.instant_bookable}
+                  kitchen={property.kitchen}
+                  smoke_detector={property.smoke_detector}
+                  self_check_in={property.self_check_in}
+                  hot_water={property.hot_water}
+                  host_location={property.host_location}
+                  host_response_rate={property.host_response_rate}
+                  predicted_price={property.predicted_price}
+                  delete={e => deletePropertyButton(e, property)}
+                  edit={e => editPropertyButton(e, property)}
+                />
+              </>
+            );
+          })) : (
+            <Loading>No Properties! Try adding one...</Loading>
+          )
+        }
         </>
       )}
     </>
