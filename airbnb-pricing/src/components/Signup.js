@@ -164,8 +164,8 @@ function Signup(props) {
         </LoginLeft>
         <LoginRight>
           <Quote>
-            "Within minutes of using Airbnb Pricer, I was able to get
-            recommended listing prices for my rental properties in Tokyo."
+            "Within minutes of using Airbnb Pricer, I found recommended listing
+            prices for my rental properties in Tokyo. Thank you!"
           </Quote>
         </LoginRight>
       </LoginContainer>
