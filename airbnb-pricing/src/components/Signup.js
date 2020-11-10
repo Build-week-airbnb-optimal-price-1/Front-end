@@ -165,7 +165,7 @@ function Signup(props) {
         <LoginRight>
           <Quote>
             "Within minutes of using Airbnb Pricer, I found recommended listing
-            prices for my rental properties in Tokyo. Thank you!"
+            prices for my rental properties in Tokyo."
           </Quote>
         </LoginRight>
       </LoginContainer>
