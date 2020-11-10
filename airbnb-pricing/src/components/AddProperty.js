@@ -93,56 +93,84 @@ const FormRight = style.div`
   background-color: #2281bf;
 `;
 
-const AddProperty = props => {
-	const [property, setProperty] = useState({
+const AddProperty = (props) => {
+  const [property, setProperty] = useState({
     photo: `https://picsum.photos/400/250?random=${Date.now()}`,
     title: props.editPropertyStart ? props.currentProperty.title : "",
     summary: props.editPropertyStart ? props.currentProperty.summary : "",
-    neighbourhood_cleansed: props.editPropertyStart ? props.currentProperty.neighbourhood_cleansed : "",
-    property_type: props.editPropertyStart ? props.currentProperty.property_type : "",
+    neighbourhood_cleansed: props.editPropertyStart
+      ? props.currentProperty.neighbourhood_cleansed
+      : "",
+    property_type: props.editPropertyStart
+      ? props.currentProperty.property_type
+      : "",
     room_type: props.editPropertyStart ? props.currentProperty.room_type : "",
     bathrooms: props.editPropertyStart ? props.currentProperty.bathrooms : 0,
-    cleaning_fee: props.editPropertyStart ? props.currentProperty.cleaning_fee : 0,
-    minimum_nights: props.editPropertyStart ? props.currentProperty.minimum_nights : 0,
-    instant_bookable: props.editPropertyStart ? props.currentProperty.instant_bookable : 0,
+    cleaning_fee: props.editPropertyStart
+      ? props.currentProperty.cleaning_fee
+      : 0,
+    minimum_nights: props.editPropertyStart
+      ? props.currentProperty.minimum_nights
+      : 0,
+    instant_bookable: props.editPropertyStart
+      ? props.currentProperty.instant_bookable
+      : 0,
     kitchen: props.editPropertyStart ? props.currentProperty.kitchen : 0,
-    smoke_detector: props.editPropertyStart ? props.currentProperty.smoke_detector : 0,
-    self_check_in: props.editPropertyStart ? props.currentProperty.self_check_in : 0,
-    accommodates: props.editPropertyStart ? props.currentProperty.accommodates : 0,
+    smoke_detector: props.editPropertyStart
+      ? props.currentProperty.smoke_detector
+      : 0,
+    self_check_in: props.editPropertyStart
+      ? props.currentProperty.self_check_in
+      : 0,
+    accommodates: props.editPropertyStart
+      ? props.currentProperty.accommodates
+      : 0,
     hot_water: props.editPropertyStart ? props.currentProperty.hot_water : 0,
     local_host: props.editPropertyStart ? props.currentProperty.local_host : 0,
-    host_response_rate: props.editPropertyStart ? props.currentProperty.host_response_rate : 0,
+    host_response_rate: props.editPropertyStart
+      ? props.currentProperty.host_response_rate
+      : 0,
     id: props.editPropertyStart ? props.currentProperty.id : Date.now(),
-    user_id: parseInt(localStorage.getItem("user_id"))
+    user_id: parseInt(localStorage.getItem("user_id")),
   });
-	// Spread operator and Computed properties(ES6) - This is my changeHandler. It's still using my event from onChange but now I can dynamically set my keys in my objects with computed properties. 
-	// I'm capturing the name attribute from wherever I fire the event. 
-	const handleChanges = event => {
-		setProperty({ ...property, [event.target.name]: event.target.value }); 
-		console.log(event.target.name);
-  }; 
-
-  const handleNumbers = event => {
-    setProperty({ ...property, [event.target.name]: parseInt(event.target.value) });
+  // Spread operator and Computed properties(ES6) - This is my changeHandler. It's still using my event from onChange but now I can dynamically set my keys in my objects with computed properties.
+  // I'm capturing the name attribute from wherever I fire the event.
+  const handleChanges = (event) => {
+    setProperty({ ...property, [event.target.name]: event.target.value });
     console.log(event.target.name);
-  }; 
-  
-  const handleClick = event => {
-    setProperty({ ...property, [event.target.name]: (event.target.checked ? 1 : 0 ) });
-    console.log(event.target.name);
-  }; 
-
-	const submitForm = event => {
-		event.preventDefault();
-		props.postProperty(localStorage.getItem("token"), property, props.history);
   };
-  
-	const editForm = event => {
+
+  const handleNumbers = (event) => {
+    setProperty({
+      ...property,
+      [event.target.name]: parseInt(event.target.value),
+    });
+    console.log(event.target.name);
+  };
+
+  const handleClick = (event) => {
+    setProperty({
+      ...property,
+      [event.target.name]: event.target.checked ? 1 : 0,
+    });
+    console.log(event.target.name);
+  };
+
+  const submitForm = (event) => {
     event.preventDefault();
-    props.saveEditProperty(localStorage.getItem("token"), property, props.history);
+    props.postProperty(localStorage.getItem("token"), property, props.history);
   };
 
-	return (
+  const editForm = (event) => {
+    event.preventDefault();
+    props.saveEditProperty(
+      localStorage.getItem("token"),
+      property,
+      props.history
+    );
+  };
+
+  return (
     <>
       <AddEditContainer>
         <FormLeft>
@@ -449,7 +477,9 @@ const AddProperty = props => {
               <Button type="submit">Submit</Button>
             )}
             {(props.postPropertyError || props.saveEditPropertyError) && (
-              <p style={{ color: "red", textAlign: "center", marginTop: "10px" }}>
+              <p
+                style={{ color: "red", textAlign: "center", marginTop: "10px" }}
+              >
                 Welp, looks like it's on fire again
               </p>
             )}
@@ -457,7 +487,9 @@ const AddProperty = props => {
         </FormLeft>
         <FormRight>
           <Quote>
-            Fill all those sick fields with hella information so that we give you a bomb ass recommendation for pricing that property, yo
+            "This app is a fabulous boon to the often strenuous search for the
+            perfect Airbnb. I'll be using this app in tandem with my next
+            booking."
           </Quote>
         </FormRight>
       </AddEditContainer>
@@ -465,33 +497,16 @@ const AddProperty = props => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   properties: state.properties,
   postPropertyError: state.postPropertyError,
   postPropertyStart: state.postPropertyStart,
   editPropertyStart: state.editPropertyStart,
   saveEditPropertyStart: state.saveEditPropertyStart,
   saveEditPropertyError: state.saveEditPropertyError,
-  currentProperty: state.currentProperty
+  currentProperty: state.currentProperty,
 });
 
 export default connect(mapStateToProps, { postProperty, saveEditProperty })(
   withRouter(AddProperty)
 );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
