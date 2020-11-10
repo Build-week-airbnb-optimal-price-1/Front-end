@@ -105,17 +105,17 @@ const StyleLink = style(Link)`
 function Signup(props) {
   const [creds, setCreds] = useState({
     username: "",
-    password: ""
+    password: "",
   });
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setCreds({
       ...creds,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault();
     props.signup(creds, props.history);
   };
@@ -164,9 +164,8 @@ function Signup(props) {
         </LoginLeft>
         <LoginRight>
           <Quote>
-            “Within 15 minutes of using Airbnb Pricer, I was transformed. Where
-            before I was but a child, I was now able to stare into the
-            transcendence of infinity. “
+            "Within minutes of using Airbnb Pricer, I was able to get
+            recommended listing prices for my rental properties in Tokyo."
           </Quote>
         </LoginRight>
       </LoginContainer>
@@ -174,9 +173,9 @@ function Signup(props) {
   );
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   signupStart: state.signupStart,
-  signupError: state.signupError
+  signupError: state.signupError,
 });
 
 export default connect(mapStateToProps, { signup })(withRouter(Signup));

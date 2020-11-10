@@ -104,18 +104,18 @@ const StyleLink = style(Link)`
 
 function Login(props) {
   const [creds, setCreds] = useState({
-      username: "",
-      password: ""
+    username: "",
+    password: "",
   });
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setCreds({
       ...creds,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault();
     props.login(creds, props.history);
   };
@@ -151,7 +151,9 @@ function Login(props) {
               <Button type="submit">Login</Button>
             )}
             {props.loginError && (
-              <p style={{ color: "red", textAlign: "center", marginTop: "10px" }}>
+              <p
+                style={{ color: "red", textAlign: "center", marginTop: "10px" }}
+              >
                 There has been an issue logging in. Please check your
                 credentials.
               </p>
@@ -162,9 +164,8 @@ function Login(props) {
         </LoginLeft>
         <LoginRight>
           <Quote>
-            “Within 15 minutes of using Airbnb Pricer, I was transformed. Where
-            before I was but a child, I was now able to stare into the
-            transcendence of infinity. “
+            "Within minutes of using Airbnb Pricer, I was able to get recommended
+            listing prices for my rental properties in Tokyo."
           </Quote>
         </LoginRight>
       </LoginContainer>
@@ -172,9 +173,9 @@ function Login(props) {
   );
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   loginStart: state.loginStart,
-  loginError: state.loginError
+  loginError: state.loginError,
 });
 
 export default connect(mapStateToProps, { login })(withRouter(Login));
