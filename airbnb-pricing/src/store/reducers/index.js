@@ -61,7 +61,9 @@ const reducer = (state = initialState, action) => {
         ...state,
         loginStart: false,
         loginSuccess: true,
-        signupNew: false
+        signupNew: false,
+        loginError: false,
+        signupError: false
       };
 
     case LOGIN_ERROR:
@@ -81,7 +83,9 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         signupStart: false,
-        signupNew: true
+        signupNew: true,
+        loginError: false,
+        signupError: false
       };
 
     case SIGNUP_ERROR:
@@ -195,7 +199,7 @@ const reducer = (state = initialState, action) => {
 
     case LOGOUT:
       return {
-        ...state
+        ...state,
       };
 
     default:
