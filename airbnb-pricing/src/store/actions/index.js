@@ -81,7 +81,7 @@ export const postProperty = (token, property, history) => dispatch => {
       .then(res => {
         setTimeout(() => {
           axiosWithAuth(token)
-            .post(`${urlServer}/listings/insertlisting`, res.data.replace(/'/g, '"'))
+            .post(`${urlServer}/listings/insertlisting`, res.data)
             .then(res => {
               console.log(res);
               setTimeout(() => {
