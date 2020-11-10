@@ -125,7 +125,7 @@ function Login(props) {
       <LoginContainer>
         <LoginLeft>
           <StyleLogin onSubmit={onSubmit}>
-            <img src="images/Logo.svg" />
+            <img src="images/Logo.svg" alt="ap-logo"/>
             <Title>Airbnb Pricer</Title>
             <Label>Username</Label>
             <StyleInput
