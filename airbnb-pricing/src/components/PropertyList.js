@@ -35,9 +35,11 @@ const PropertyList = props => {
     // props.editProperty(localStorage.getItem("token"), id, props.history);
   };
 
-	useEffect(() => {
-    props.getProperties(localStorage.getItem("token"));
-  }, [props.postPropertySuccess]);
+  const { postPropertySuccess, getProperties } = props;
+
+  useEffect(() => {
+    getProperties(localStorage.getItem("token"));
+  }, [postPropertySuccess, getProperties]);
 
   //, props.saveEditPropertySuccess, props.loginSuccess
   
