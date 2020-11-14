@@ -162,9 +162,7 @@ function Login(props) {
         </LoginLeft>
         <LoginRight>
           <Quote>
-            “Within 15 minutes of using Airbnb Pricer, I was transformed. Where
-            before I was but a child, I was now able to stare into the
-            transcendence of infinity. “
+            "Within minutes of using Airbnb Pricer, I was able to find recommended listing prices for my rental properties in Tokyo."
           </Quote>
         </LoginRight>
       </LoginContainer>
