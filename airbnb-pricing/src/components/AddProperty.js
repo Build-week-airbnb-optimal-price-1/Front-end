@@ -457,7 +457,7 @@ const AddProperty = props => {
         </FormLeft>
         <FormRight>
           <Quote>
-            Fill all those sick fields with hella information so that we give you a bomb ass recommendation for pricing that property, yo
+            "This app is a fabulous solution to the often strenuous search for the perfect Airbnb. I'll be using this for all my bookings."
           </Quote>
         </FormRight>
       </AddEditContainer>

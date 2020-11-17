@@ -81,7 +81,7 @@ export const postProperty = (token, property, history) => dispatch => {
       .then(res => {
         setTimeout(() => {
           axiosWithAuth(token)
-            .post(`${urlServer}/listings/insertlisting`, res.data.replace(/'/g, '"'))
+            .post(`${urlServer}/listings/insertlisting`, res.data)
             .then(res => {
               console.log(res);
               setTimeout(() => {
@@ -153,7 +153,7 @@ export const saveEditProperty = (token, property, history) => dispatch => {
     .then(res => {
       setTimeout(() => {
         axiosWithAuth(token)
-          .put(`${urlServer}/listings/updatelisting/${property.id}`, res.data.replace(/'/g, '"'))
+          .put(`${urlServer}/listings/updatelisting/${property.id}`, res.data)
           .then(res => {
             console.log(res.data);
             setTimeout(() => {
